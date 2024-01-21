@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+      --color-success: 54 211 153;
+      --su: 77.33% 0.153 163.1;
+      --suc: 77.33% 0.153 163.1;
+    }
+  }
+
+.prose {
+    @apply text-gray-300;
+    h2 {
+        @apply text-white;
+    }
+}
+
+button, .btn {
+    @apply text-white uppercase;
+}
+
+.navigation {
+    @apply fixed bottom-0 z-10 w-full p-4;
+
+    .navigation-wrapper {
+        @apply flex items-center max-w-lg mx-auto;
+    }
+    button {
+        span:not(.loading) {
+            @apply sr-only lg:not-sr-only;
+        }
+    }
+}
