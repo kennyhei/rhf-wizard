@@ -44,7 +44,6 @@ const steps: StepConfig[] = [
         username: 'text',
       }
     },
-    // TODO: fix
     validate: validateUsername,
     disableNextOnErrors: true
   },
