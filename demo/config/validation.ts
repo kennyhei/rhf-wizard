@@ -18,7 +18,7 @@ export const ContactInfoSchema = Yup.object({
 */
 
 export function validateUsername(stepValues: Values, values: WizardValues) {
-  const errors: any = {}
+  const errors: Values<string> = {}
   if (!stepValues.username) {
     errors.username = 'This field is required'
   } else if (!stepValues.username.toLowerCase().includes(values.ContactInfo.firstName.toLowerCase())) {

@@ -179,13 +179,14 @@ function Wizard({
     return values[step.id] || step.initialValues || {}
   }
 
+  const stepValues = methods.getValues()
   const context: WizardContextValues = {
     values,
     setValues,
     setIsLoading,
     updateStep,
-    goToPreviousStep: () => handlePrevious(methods.getValues()),
-    goToNextStep: () => handleNext(methods.getValues()),
+    goToPreviousStep: () => handlePrevious(stepValues),
+    goToNextStep: () => handleNext(stepValues),
     goToStep: (index: number) => setActiveStep(steps[index]),
     activeStep,
     stepNumber,
