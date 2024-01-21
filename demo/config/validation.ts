@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 import { WizardValues, Values } from '@/types'
 
-/* Schemas for <RHF validationSchema> */
+/* Schemas for "StepConfig.validationSchema" */
 
 export const ContactInfoSchema = Yup.object({
   firstName: Yup.string().required('This field is required'),
@@ -11,7 +11,7 @@ export const ContactInfoSchema = Yup.object({
 })
 
 /*
-  Functions for <RHF validate>.
+  Functions for "StepConfig.validate".
 
   Using "validate" is preferred if validation is dependent
   on values that were filled in previous steps.

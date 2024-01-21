@@ -31,7 +31,7 @@ function Wizard({
   const methods = useForm({
     defaultValues: getInitialValues(activeStep),
     mode: getMode(activeStep),
-    resolver: getResolver(activeStep),
+    resolver: getResolver(activeStep, values),
     shouldUnregister: true,
   })
   const { reset } = methods
@@ -169,15 +169,6 @@ function Wizard({
     setActiveStep(previousStep)
   }
 
-  function handleValidate(validate: Step['validate']) {
-    if (!validate) {
-      return
-    }
-    return (stepValues: Values) => {
-      return validate(stepValues, values)
-    }
-  }
-
   // Utility function
   function updateStep(key: string, value: any) {
     setActiveStep({ ...activeStep, [key]: value })
@@ -188,27 +179,24 @@ function Wizard({
     return values[step.id] || step.initialValues || {}
   }
 
-  function getContext(): WizardContextValues {
-    return {
-      values,
-      setValues,
-      setIsLoading,
-      updateStep,
-      goToPreviousStep: () => handlePrevious(methods.getValues()),
-      goToNextStep: () => handleNext(methods.getValues()),
-      goToStep: (index: number) => setActiveStep(steps[index]),
-      activeStep,
-      stepNumber,
-      totalSteps,
-      isLoading,
-      isFirstStep,
-      isLastStep
-    }
+  const context: WizardContextValues = {
+    values,
+    setValues,
+    setIsLoading,
+    updateStep,
+    goToPreviousStep: () => handlePrevious(methods.getValues()),
+    goToNextStep: () => handleNext(methods.getValues()),
+    goToStep: (index: number) => setActiveStep(steps[index]),
+    activeStep,
+    stepNumber,
+    totalSteps,
+    isLoading,
+    isFirstStep,
+    isLastStep
   }
 
-  // TODO: validate function
   return (
-    <WizardContext.Provider value={getContext()}>
+    <WizardContext.Provider value={context}>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleNext)}>
           {header}

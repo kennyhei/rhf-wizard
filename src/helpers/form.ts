@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { StepConfig as Step } from '../types'
+import { StepConfig as Step, Values, WizardValues } from '../types'
 
 export function getMode(activeStep: Step) {
   const onChange = activeStep.validateOnChange ?? true
@@ -16,9 +16,32 @@ export function getMode(activeStep: Step) {
   return 'onSubmit'
 }
 
-export function getResolver(activeStep: Step) {
+function validateResolver(validateFn: Step['validate'], values: WizardValues) {
+  return (stepValues: Values) => {
+    const errors = validateFn!(stepValues, values)
+    const isValid = Object.keys(errors).length === 0;
+    if (isValid) {
+      return {
+        values: stepValues,
+        errors: {}
+      }
+    }
+    const formattedErrors = Object.keys(errors).reduce((acc, key) => {
+      return { ...acc, [key]: { message: errors[key] } }
+    }, {})
+    return {
+      values: {},
+      errors: formattedErrors
+    }
+  }
+}
+
+export function getResolver(activeStep: Step, values: WizardValues) {
   if (activeStep.validationSchema) {
     return yupResolver(activeStep.validationSchema)
+  }
+  if (activeStep.validate) {
+    return validateResolver(activeStep.validate, values)
   }
   return undefined
 }

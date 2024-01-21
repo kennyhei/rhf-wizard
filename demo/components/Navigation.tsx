@@ -15,7 +15,7 @@ function Navigation() {
       disableNextOnErrors
     }
   } = useWizard()
-  const { formState: { isValid } } = useFormContext()
+  const { formState: { isValid }, trigger } = useFormContext()
   disableNext = isLoading || disableNext || (disableNextOnErrors && !isValid)
 
   return (
@@ -37,7 +37,7 @@ function Navigation() {
         {!hideNext && (
           // Still possible to trigger submit even though button is disabled.
           // Main reason is to display validation errors.
-          <div onClick={disableNext ? undefined : undefined}>
+          <div onClick={disableNext ? () => { trigger() } : undefined}>
             <button
               className='btn'
               disabled={disableNext}

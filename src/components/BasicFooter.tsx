@@ -18,7 +18,7 @@ function BasicFooter({ textNext, textPrevious }: Props) {
       disableNextOnErrors
     },
   } = useWizard()
-  const { formState: { isValid } } = useFormContext()
+  const { formState: { isValid }, trigger } = useFormContext()
   disableNext = isLoading || disableNext || (disableNextOnErrors && !isValid)
 
   return (
@@ -38,9 +38,11 @@ function BasicFooter({ textNext, textPrevious }: Props) {
         {!hideNext && (
           // Still possible to trigger submit even though button is disabled.
           // Main reason is to display validation errors.
-          <button type='submit' disabled={disableNext}>
-            {isLoading ? 'Loading...' : textNext || 'Next'}
-          </button>
+          <div onClick={disableNext ? () => { trigger() } : undefined}>
+            <button type='submit' disabled={disableNext}>
+              {isLoading ? 'Loading...' : textNext || 'Next'}
+            </button>
+          </div>
         )}
       </div>
     </div>

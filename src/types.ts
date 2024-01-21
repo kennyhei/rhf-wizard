@@ -1,7 +1,7 @@
 import 'vite/client'
 
-export interface Values {
-  [field: string]: any
+export interface Values<K = any> {
+  [field: string]: K
 }
 
 export interface WizardValues {
@@ -71,7 +71,7 @@ export interface StepConfig {
    * @param allValues Object containing all form field values from previous steps
    * @returns Object where keys represent field and value represents error message. Return nothing if there are no errors.
    */
-  validate?: (stepValues: Values, allValues: WizardValues) => object
+  validate?: (stepValues: Values, allValues: WizardValues) => Values<string>
   /** A Yup schema or a function that returns a Yup schema */
   validationSchema?: any,
   /** Tells Formik to validate the form on each input's onBlur event */
