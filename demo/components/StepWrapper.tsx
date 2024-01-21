@@ -1,14 +1,14 @@
 import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { useWizard } from '@/index'
 import { AnimatePresence, motion } from 'framer-motion'
 import DefaultStepContentRenderer from './DefaultStepContentRenderer'
-import { useFormikContext } from 'formik'
 import { AppContext } from '../main'
 
 function WizardStepWrapper() {
   const { isAnimated } = useContext(AppContext)
   const { activeStep } = useWizard()
-  const { initialValues, values } = useFormikContext()
+  const { getValues, register, formState: { errors } } = useFormContext()
 
   let variants = {}
   if (isAnimated) {
@@ -33,9 +33,10 @@ function WizardStepWrapper() {
           <div className='container mx-auto sm:px-0 px-5 max-w-lg min-w-min md:max-w-2xl lg:max-w-4xl'>
             {activeStep.component || (
               <DefaultStepContentRenderer
+                register={register}
                 activeStep={activeStep} 
-                initialValues={initialValues}
-                values={values}
+                values={getValues()}
+                errors={errors}
               />
             )}
           </div>

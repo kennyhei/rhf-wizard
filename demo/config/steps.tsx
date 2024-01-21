@@ -44,6 +44,7 @@ const steps: StepConfig[] = [
         username: 'text',
       }
     },
+    // TODO: fix
     validate: validateUsername,
     disableNextOnErrors: true
   },
@@ -64,7 +65,7 @@ const steps: StepConfig[] = [
   {
     id: 'Async',
     component: <StepAsync />,
-    onSubmit: async (stepValues: Values, _allValues: WizardValues, _actions: any) => {
+    onSubmit: async (stepValues: Values, _allValues: WizardValues) => {
       const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
       await delay(2000)
       return stepValues

@@ -1,5 +1,5 @@
 import { useWizard } from '@/index'
-import { useFormikContext } from 'formik'
+import { useFormContext } from 'react-hook-form'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 import ClipLoader from 'react-spinners/ClipLoader'
 
@@ -15,7 +15,7 @@ function Navigation() {
       disableNextOnErrors
     }
   } = useWizard()
-  const { isValid, submitForm } = useFormikContext()
+  const { formState: { isValid } } = useFormContext()
   disableNext = isLoading || disableNext || (disableNextOnErrors && !isValid)
 
   return (
@@ -37,7 +37,7 @@ function Navigation() {
         {!hideNext && (
           // Still possible to trigger submit even though button is disabled.
           // Main reason is to display validation errors.
-          <div onClick={disableNext ? submitForm : undefined}>
+          <div onClick={disableNext ? undefined : undefined}>
             <button
               className='btn'
               disabled={disableNext}

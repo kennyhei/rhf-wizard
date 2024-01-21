@@ -1,15 +1,17 @@
-import { ErrorMessage, Field } from 'formik'
+import { ErrorMessage } from '@hookform/error-message'
 
 interface Props {
+  register: any,
   activeStep: any,
-  initialValues: any,
-  values: any
+  values: any,
+  errors: any
 }
 
 function DefaultStepContentRenderer({
+  register,
   activeStep,
-  initialValues,
-  values
+  values,
+  errors
 }: Props) {
 
   function humanize(value: string) {
@@ -47,21 +49,22 @@ function DefaultStepContentRenderer({
       <h2>{humanize(activeStep.id)}</h2>
       <p>{activeStep.helpText}</p>
       <div className='flex flex-row gap-6 flex-wrap'>
-        {Object.keys(initialValues || {}).map(field => (
+        {Object.keys(values || {}).map(field => (
             <div key={field} className='grow shrink-0 basis-72'>
               <label htmlFor={field} className='block mb-2 text-sm font-medium text-white'>{humanize(field)}</label>
-              <Field
+              <input
                 id={field}
-                name={field}
-                value={values[field]}
                 type={fields?.inputTypes[field]}
                 placeholder={fields?.placeholders?.[field]}
                 {...getFieldConstraints(validationSchema?.fields?.[field], fields?.inputTypes[field])}
+                {...register(field)}
                 className='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400'
               />
-              <ErrorMessage name={field}>
-                {msg => <div className='text-red-400'>{msg}</div>}
-              </ErrorMessage>
+              <ErrorMessage
+                errors={errors}
+                name={field}
+                render={({ message }) => <div className='text-red-400'>{message}</div>}
+              />
             </div>
         ))}
       </div>
