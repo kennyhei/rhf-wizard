@@ -1,17 +1,16 @@
+import { StepConfig as Step } from '@/types'
 import { ErrorMessage } from '@hookform/error-message'
 
 interface Props {
   register: any,
-  activeStep: any,
-  values: any,
-  errors: any
+  activeStep: Step,
+  values: any
 }
 
 function DefaultStepContentRenderer({
   register,
   activeStep,
-  values,
-  errors
+  values
 }: Props) {
 
   function humanize(value: string) {
@@ -61,7 +60,6 @@ function DefaultStepContentRenderer({
                 className='bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400'
               />
               <ErrorMessage
-                errors={errors}
                 name={field}
                 render={({ message }) => <div className='text-red-400'>{message}</div>}
               />

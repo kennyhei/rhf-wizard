@@ -1,8 +1,8 @@
-# React Formik Step Wizard
+# React Hook Form Wizard
 
 React multistep wizard library with React Hook Form integration.
 
-This library let's you build multistep form wizards using Formik. How this works is that steps are internally wrapped inside `<Formik />` instance, allowing you to configure validation, validation strategy and initial values for each step and make use of Formik's helpful hooks and components like `useFormikContext`, `<Field />`, `<ErrorMessage />` and such in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
+This library let's you build multistep form wizards using React Hook Form. How this works is that steps are internally wrapped inside form element which has a submit handler provided by react-hook-form. You can configure validation, validation strategy and initial values for each step and make use of react-hook-form's helpful hooks and components like `useFormContext`, `<ErrorMessage />` and such in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
 
 Library basically consists of [`Wizard`](#wizard) component that requires a list of [step configuration](#step-object) objects. Wizard itself collects inputted form values from each step. Collected values can be accessed using [`useWizard`](#usewizard) hook.
 
@@ -33,7 +33,7 @@ You can find more information on usage below.
     - [2. Writing your step component(s)](#2-writing-your-step-components)
     - [3. Setting up the Wizard](#3-setting-up-the-wizard)
     - [4. Full example](#4-full-example)
-    - [What if I don't want to use Formik in step component?](#what-if-i-dont-want-to-use-formik-in-step-component)
+    - [What if I don't want to use RHF in step component?](#what-if-i-dont-want-to-use-rhf-in-step-component)
   - [Navigation](#navigation)
     - [BasicFooter](#basicfooter)
   - [API](#api)
@@ -60,7 +60,7 @@ npm install react-hook-form-wizard --save
 
 Yarn:
 ```
-yarn add react-hook-form-wizard formik
+yarn add react-hook-form-wizard react-hook-form
 ```
 
 **Note:** It is also recommended to install `yup` for validation (it is used in examples below). You can install `yup` with `npm install yup --save` or `yarn add yup`. However, it's not mandatory as you can write your validation function to [steps](#step-object) with plain JS as well (see `validate`).
@@ -71,14 +71,16 @@ yarn add react-hook-form-wizard formik
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Wizard, useWizard, BasicFooter } from 'react-hook-form-wizard'
-import { Field, ErrorMessage } from 'formik'
+import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import * as Yup from 'yup'
 
 function StepName() {
+  const { register } = useFormContext()
   return (
     <div>
       <label htmlFor="name">Name</label>
-      <Field id="name" name="name" type="text" />
+      <input {...register('name')} />
       <ErrorMessage name="name" />
     </div>
   )
@@ -88,7 +90,7 @@ function StepAge() {
   return (
     <div>
       <label htmlFor="age">Age</label>
-      <Field id="age" name="age" type="number" min="0" max="125" />
+      <input type="number" min="0" max="125" {...register('name')} />
       <ErrorMessage name="age" />
     </div>
   )
@@ -183,12 +185,12 @@ const steps = [
 ]
 ```
 
-Each step object defines `component` that is used to render the step. `Wizard` wraps the currently active step inside `<Formik><Form></Form></Formik>`. The following step object attributes are passed automatically to Formik instance:
+Each step object defines `component` that is used to render the step. `Wizard` wraps the currently active step inside `<FormProvider><form></form></FormProvider>`. The following step object attributes are passed automatically to `react-hook-form`:
 
-- `initialValues`: Initial values of the `Formik` fields that are rendered in the `component`.
+- `initialValues`: Default values of the `react-hook-form` fields that are rendered in the `component`.
 - `validationSchema` / `validate`: Either define Yup schema or function that validates the form fields.
-- `validateOnChange`: Tells Formik to validate the form on each input's onChange event. Defaults to `true`.
-- `validateOnBlur`: Tells Formik to validate the form on each input's onBlur event. Defaults to `true`.
+- `validateOnChange`: Tells RHF to validate the form on each input's onChange event. Defaults to `true`.
+- `validateOnBlur`: Tells RHF to validate the form on each input's onBlur event. Defaults to `true`.
 
 Usually you would need to define at least `initialValues` and `validationSchema` / `validate` (presuming that your step `component` contains form fields).
 
@@ -196,18 +198,20 @@ You can view the full list of step options [here](#step-object).
 
 ### 2. Writing your step component(s)
 
-If you plan to have form fields in your step component, you should use Formik's `Field` component to render fields and `ErrorMessage` to render error messages. For instance, this is what `StepName` and `StepAge` could look like:
+If you plan to have form fields in your step component, you should use RHF's `register` method to render fields and `ErrorMessage` to render error messages. For instance, this is what `StepName` and `StepAge` could look like:
 
 ```js
-import { Field, ErrorMessage } from 'formik'
 import { useWizard } from 'react-hook-form-wizard'
+import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 function StepName() {
+  const { register } = useFormContext()
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
-        <Field id="name" name="name" type="text" />
+        <input {...register('name')} />
         <ErrorMessage name="name" />
       </div>
       <button type="submit">Next</button>
@@ -221,7 +225,7 @@ function StepAge() {
     <div>
       <div>
         <label htmlFor="age">Name</label>
-        <Field id="age" name="age" type="number" />
+        <input type="number" {...register('age')} />
         <ErrorMessage name="age" />
       </div>
       <button type="button" onClick={goToPreviousStep}>Previous</button>
@@ -275,15 +279,17 @@ Here's what the finished code looks like:
 ```js
 import React from 'react'
 import { useWizard, Wizard } from 'react-hook-form-wizard'
-import { Field, ErrorMessage } from 'formik'
+import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import * as Yup from 'yup'
 
 function StepName() {
+  const { register } = useFormContext()
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
-        <Field id="name" name="name" type="text" />
+        <input {...register('name')} />
         <ErrorMessage name="name" />
       </div>
       <button type="submit">Next</button>
@@ -293,11 +299,12 @@ function StepName() {
 
 function StepAge() {
   const { goToPreviousStep } = useWizard()
+  const { register } = useFormContext()
   return (
     <div>
       <div>
         <label htmlFor="age">Age</label>
-        <Field id="age" name="age" type="number" min="0" />
+        <input type="number" min="0" {...register('age')} />
         <ErrorMessage name="age" />
       </div>
       <button type="button" onClick={goToPreviousStep}>Previous</button>
@@ -349,9 +356,9 @@ function App() {
 }
 ```
 
-### What if I don't want to use Formik in step component?
+### What if I don't want to use RHF in step component?
 
-Then you can omit `initialValues` and `validationSchema` / `validate` attributes from the step object and not just use Formik's `Field` and `ErrorMessage` in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
+Then you can omit `initialValues` and `validationSchema` / `validate` attributes from the step object and not just use RHF's `register` method and `ErrorMessage` in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
 
 ## Navigation
 
@@ -373,6 +380,7 @@ Here's an example of simple navigation component:
 ```js
 import React from 'react'
 import { Wizard, useWizard } from 'react-hook-form-wizard'
+import { useFormContext } from 'react-hook-form'
 
 const steps = [
   { id: 'Step1', component: <h1>Step 1</h1>, hidePrevious: true },
@@ -393,7 +401,7 @@ function Navigation() {
       disableNextOnErrors
     }
   } = useWizard()
-  const { isValid, submitForm } = useFormikContext()
+  const { formState: { isValid }, trigger } = useFormContext()
   const isPreviousDisabled = disablePrevious || isLoading
   const isNextDisabled = disableNext || isLoading || (disableNextOnErrors && !isValid)
 
@@ -407,7 +415,7 @@ function Navigation() {
         <button type="button" onClick={goToPreviousStep} disabled={isPreviousDisabled}>Previous</button>
       )}
       {!hideNext && (
-        <div onClick={isNextDisabled ? submitForm : undefined}>
+        <div onClick={isNextDisabled ? () => { trigger() } : undefined}>
           <button type="submit" disabled={isNextDisabled}>Next</button>
         </div>
       )}
@@ -469,11 +477,11 @@ List of step objects that are passed to `Wizard` have various options you can se
 | `disablePrevious`      | `boolean`                                              | `false`   | Indicates whether to disable "Previous" button.                                                                                                                                                                                                                                                                                   |
 | `keepValuesOnPrevious` | `boolean`                                              | `true`    | Remembers inputted values in current step if user decides to navigate back to previous step without submitting the form.                                                                                                                                                                                                          |
 | `shouldSkip`           | `async (allValues, direction) => stepValues`           |         | Function that returns boolean telling whether the step should be skipped or not.<br><br>Params:<br>- `allValues`: all form field values from previous steps<br>- `direction`: Tells whether user came to the current step by pressing "Previous" (-1) or by pressing "Next" (1)                                                   |
-| `onSubmit`             | `async (stepValues, allValues, actions) => stepValues` |         | Function that serves as a custom submit handler where you can do things after successful form submission. You should return `stepValues`.<br><br>Params:<br>- `stepValues`: form field values filled in current step<br>- `allValues`: all form field values from previous steps<br>- `actions`: Includes Formik helper functions |
+| `onSubmit`             | `async (stepValues, allValues) => stepValues` |         | Function that serves as a custom submit handler where you can do things after successful form submission. You should return `stepValues`.<br><br>Params:<br>- `stepValues`: form field values filled in current step<br>- `allValues`: all form field values from previous steps |
 | `validate`             | `(stepValues, allValues) => object`                    |         | Validate the form's values with a function. If there are errors, return object containing field's name as key and error message as value.<br><br>Params:<br>- `stepValues`: form field values filled in current step<br>- `allValues`: all form field values from previous steps                                                  |
-| `validationSchema`     | `Yup.object`                                           |         | A Yup schema. This is used for validation. Errors are mapped by key to the inner component's errors. Its keys should match of those values. Example here: [ https://formik.org/docs/guides/validation#validationschema ]( https://formik.org/docs/guides/validation#validationschema )                                            |
-| `validateOnBlur`       | `boolean`                                              | `true`    | Use this option to tell Formik to run validations on blur events.                                                                                                                                                                                                                                                                 |
-| `validateOnChange`     | `boolean`                                              | `true`    | Use this option to tell Formik to run validations on change events.                                                                                                                                                                                                                                                               |
+| `validationSchema`     | `Yup.object`                                           |         | A Yup schema. This is used for validation. Errors are mapped by key to the inner component's errors. Its keys should match of those values. Example here: [ https://react-hook-form.com/get-started#SchemaValidation ]( https://react-hook-form.com/get-started#SchemaValidation )                                            |
+| `validateOnBlur`       | `boolean`                                              | `true`    | Use this option to tell RHF to run validations on blur events.                                                                                                                                                                                                                                                                 |
+| `validateOnChange`     | `boolean`                                              | `true`    | Use this option to tell RHF to run validations on change events.                                                                                                                                                                                                                                                               |
 
 ### Wizard
 
@@ -521,16 +529,18 @@ You can define a `shouldSkip` function that returns boolean value in the step ob
 
 Example:
 ```js
-import { Field, ErrorMessage } from 'formik'
 import { Wizard, useWizard } from 'react-hook-form-wizard'
+import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 function NonSkippableStep() {
+  const { register } = useFormContext()
   return (
     <div>
       <p>This is non-skippable step.</p>
       <p>Type "skip" if you want to skip next step.</p>
       <div>
-        <Field name="text" type="text" />
+        <input {...register('text')} />
         <ErrorMessage name="text" />
       </div>
       <button type="submit">Next</button>
@@ -697,12 +707,6 @@ Step IDs are converted into URL-friendly hashes. When user is in the first step,
 
 Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in your steps.
 
-### Caveats
-
-If you use animation library in your custom wrapper component, then during step change Formik logs warning `"A component is changing a controlled input to be uncontrolled."` to console. Tested with `react-spring` and `framer-motion`.
-
-Since steps are internally using shared Formik instance, I think the issue is that when step is changed, then Formik's `initialValues` is also updated according to what has been configured in new step object. However, during transition the old step is still rendered couple of times. If old step component is using Formik `<Field />`, internally it's retrieving `initialValues` which now has the new values from new step, causing said warning as it cannot find anymore corresponding initial value for `<Field />`. This results in component being changed from controlled input to uncontrolled.
-
 Simplified example:
 
 ```js
@@ -732,17 +736,6 @@ return (
   <Wizard steps={steps} wrapper={<Wrapper />} />
 )
 ```
-
-1. First step is rendered, internal Formik instance now has `initialValues` that equals to `{ name: '' }`
-2. User clicks next:
-    - Active step is changed to `Step2`
-    - Internally `Wizard` provides Formik instance with new `initialValues` that equals to `{ age: '' }`
-3. Transition begins, `Step1` is still being rendered and `<Field name="name" type="text" />` cannot find corresponding initial value, causing `Field` to change from controlled input to uncontrolled.
-4. After transition is done, `Step1` is not rendered anymore and everything is OK again.
-
-To my understanding, in this case the warning message is annoying but harmless. It doesn't seem to break anything nor is it visible to end user otherwise in any way. Also when `NODE_ENV` is set to `production`, warning message is not logged at all so it will be omitted from your build.
-
-One solution would be to combine all `initialValues` from step objects to a single one that is then passed to Formik. E.g. for every step in aforementioned example Formik would always be given `initialValues` that equals to `{ name: '', age: '' }`. However, this basically prevents from using same field names in multiple step objects. Other solution would be to prefix every initial value but that's clumsy as well.
 
 ## Creating wrapper for steps
 
@@ -806,7 +799,6 @@ function App() {
 You can write custom submit handler for step in attribute `onSubmit` which is a function. `onSubmit` receives three parameters:
 - `stepValues`: Form field values filled in current step
 - `allValues`: All form field values from previous steps
-- `actions`: Includes Formik helper functions
 
 One use case would be to save the inputted values in backend so that user won't have to start the wizard over if e.g. page is refreshed:
 
@@ -814,7 +806,7 @@ One use case would be to save the inputted values in backend so that user won't 
 const steps = [{
   id: 'StepName',
   component: <StepName />,
-  onSubmit: async (stepValues, allValues, actions) => {
+  onSubmit: async (stepValues, allValues) => {
     await fetch(someUrl, {
       method: 'POST',
       body: JSON.stringify({ id: 'StepName', data: stepValues })
