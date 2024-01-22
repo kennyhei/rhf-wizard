@@ -30,8 +30,6 @@ export interface StepConfig {
   initialValues?: {
     [field: string]: any
   },
-  /** Submits step's form when 'onchange' event is triggered for any field */
-  submitOnChange?: boolean,
   /** Indicates whether to hide submit button */
   hideNext?: boolean,
   /** Indicates whether to hide "Previous" button */
