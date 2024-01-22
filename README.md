@@ -687,7 +687,7 @@ return (
 )
 ```
 
-## Using URL hashes in the wizard
+### Using URL hashes in the wizard
 
 When initiating `Wizard`, you can enable URL hashes with prop `enableHash`:
 
@@ -703,7 +703,7 @@ When initiating `Wizard`, you can enable URL hashes with prop `enableHash`:
 
 Step IDs are converted into URL-friendly hashes. When user is in the first step, URL will be updated with hash `/#step-name` and when user proceeds to the next step, URL is updated with hash `/#step-age`. When refreshing page, active step will be chosen based on URL hash. If there is no hash or hash doesn't match with any step, first step is shown.
 
-## Animations
+### Animations
 
 Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in your steps.
 
@@ -737,7 +737,7 @@ return (
 )
 ```
 
-## Creating wrapper for steps
+### Creating wrapper for steps
 
 You can wrap steps by defining your own wrapper component. Here's an example:
 
@@ -766,7 +766,7 @@ function App() {
 }
 ```
 
-## Creating header for wizard
+### Creating header for wizard
 
 You can create header for wizard by defining your own header component. Here's an example:
 
@@ -794,7 +794,7 @@ function App() {
 }
 ```
 
-## Creating custom submit handler for step
+### Creating custom submit handler for step
 
 You can write custom submit handler for step in attribute `onSubmit` which is a function. `onSubmit` receives three parameters:
 - `stepValues`: Form field values filled in current step
