@@ -44,12 +44,12 @@ You can find more information on usage below.
     - [Skipping steps](#skipping-steps)
     - [Validating form field based on what user inputted in previous step(s)](#validating-form-field-based-on-what-user-inputted-in-previous-steps)
     - [Saving form values in sessionStorage](#saving-form-values-in-sessionstorage)
-  - [Using URL hashes in the wizard](#using-url-hashes-in-the-wizard)
-  - [Animations](#animations)
-    - [Caveats](#caveats)
-  - [Creating wrapper for steps](#creating-wrapper-for-steps)
-  - [Creating header for wizard](#creating-header-for-wizard)
-  - [Creating custom submit handler for step](#creating-custom-submit-handler-for-step)
+    - [Using URL hashes in the wizard](#using-url-hashes-in-the-wizard)
+    - [Animations](#animations)
+      - [Caveats](#caveats)
+    - [Creating wrapper for steps](#creating-wrapper-for-steps)
+    - [Creating header for wizard](#creating-header-for-wizard)
+    - [Creating custom submit handler for step](#creating-custom-submit-handler-for-step)
 
 ## Installation
 
