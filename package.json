@@ -1,36 +1,36 @@
 {
-  "name": "react-hook-form-wizard",
+  "name": "react-hook-form-step-wizard",
   "author": "kennyhei <kenny_heinonen@hotmail.com>",
   "description": "React multistep wizard with react-hook-form integration",
-  "homepage": "https://github.com/kennyhei/react-hook-form-wizard",
+  "homepage": "https://github.com/kennyhei/react-hook-form-step-wizard",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
-  "module": "./dist/react-hook-form-wizard.es.js",
+  "module": "./dist/react-hook-form-step-wizard.es.js",
   "files": [
     "dist",
     "src"
   ],
   "exports": {
     ".": {
-      "import": "./dist/react-hook-form-wizard.es.js"
+      "import": "./dist/react-hook-form-step-wizard.es.js"
     }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kennyhei/react-hook-form-wizard"
+    "url": "https://github.com/kennyhei/react-hook-form-step-wizard"
   },
   "keywords": [
     "react",
-    "formik",
+    "react-hook-form",
     "step",
     "multistep",
     "wizard",
     "react-wizard",
-    "formik-wizard",
+    "form-wizard",
     "step-wizard",
-    "react-hook-form-wizard",
+    "react-hook-form-step-wizard",
     "kennyhei"
   ],
   "scripts": {
@@ -42,8 +42,8 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags",
-    "install:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && npm run build && npm pack && tar -xzf react-hook-form-wizard-$PACKAGE_VERSION.tgz && mv package react-hook-form-wizard && yarn add ./react-hook-form-wizard",
-    "uninstall:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && yarn remove react-hook-form-wizard && rm -rf react-hook-form-wizard-$PACKAGE_VERSION.tgz react-hook-form-wizard"
+    "install:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && npm run build && npm pack && tar -xzf react-hook-form-step-wizad-$PACKAGE_VERSION.tgz && mv package react-hook-form-step-wizad && yarn add ./react-hook-form-step-wizad",
+    "uninstall:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && yarn remove react-hook-form-step-wizad && rm -rf react-hook-form-step-wizad-$PACKAGE_VERSION.tgz react-hook-form-step-wizad"
   },
   "dependencies": {},
   "devDependencies": {
