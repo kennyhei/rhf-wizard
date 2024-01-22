@@ -3,7 +3,7 @@
   "author": "kennyhei <kenny_heinonen@hotmail.com>",
   "description": "React multistep wizard with react-hook-form integration",
   "homepage": "https://github.com/kennyhei/react-hook-form-step-wizard",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
