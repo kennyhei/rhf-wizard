@@ -9,6 +9,9 @@ export default {
     extend: {
       colors: {
         success: 'rgb(var(--color-success) / <alpha-value>)',
+      },
+      screens: {
+        'xs': '512px'
       }
     },
   },

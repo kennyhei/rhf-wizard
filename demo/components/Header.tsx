@@ -12,12 +12,12 @@ function Header() {
     <header className='pt-4 pb-3'>
       {/* Title, steps, source code link */}
       <div className='px-5 flex justify-between items-center prose max-w-none'>
-        <h3 className='mb-0 text-base sm:text-xl'>react-hook-step-wizard</h3>
+        <h3 className='mb-0 text-sm xs:text-base sm:text-xl'>react-hook-form-step-wizard</h3>
         <div className='flex items-center'>
           <div className='mr-3 text-sm'>
             <span className='hidden min-[400px]:inline'>Step</span> {stepNumber} / {totalSteps}
           </div>
-          <a href='https://github.com/kennyhei/react-hook-step-wizard' target='_blank'>
+          <a href='https://github.com/kennyhei/react-hook-form-step-wizard' target='_blank'>
             <img src={`${baseUrl}/github-mark-white.svg`} className='rounded-md w-9 my-0' />
           </a>
         </div>
