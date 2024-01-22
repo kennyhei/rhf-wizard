@@ -604,6 +604,8 @@ Sometimes there's a need to validate field based on what user inputted in previo
 - `stepValues`: form field values filled in current step
 - `allValues`: all form field values from previous steps
 
+If there are errors, return object containing field's name as key and error message as value.
+
 Example:
 ```js
 function StepName() {
@@ -706,9 +708,20 @@ Step IDs are converted into URL-friendly hashes. When user is in the first step,
 
 Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in your steps.
 
-Simplified example:
+Example:
 
 ```js
+import { Wizard, useWizard } from 'react-hook-form-step-wizard'
+import { useFormContext } from 'react-hook-form'
+import { AnimatePresence, motion } from 'framer-motion'
+
+function Field({ name, type }) {
+  const { register } = useFormContext()
+  return (
+    <input type={type} {...register(name)} />
+  )
+}
+
 const steps = [
   { id: 'Step1', component: <Field name="name" type="text" />, initialValues: { name: '' }},
   { id: 'Step2', component: <Field name="age" type="number" />, initialValues: { age: '' }}
