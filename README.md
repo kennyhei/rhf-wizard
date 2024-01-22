@@ -87,10 +87,11 @@ function StepName() {
 }
 
 function StepAge() {
+  const { register } = useFormContext()
   return (
     <div>
       <label htmlFor="age">Age</label>
-      <input type="number" min="0" max="125" {...register('name')} />
+      <input type="number" min="0" max="125" {...register('age')} />
       <ErrorMessage name="age" />
     </div>
   )

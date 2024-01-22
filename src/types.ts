@@ -80,7 +80,7 @@ export interface StepConfig {
   [field: string]: any
 }
 
-export interface WizardProps {
+export interface WizardProps extends React.PropsWithChildren {
   /** List of step objects */
   steps: StepConfig[],
   /**

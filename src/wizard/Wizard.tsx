@@ -31,8 +31,7 @@ function Wizard({
   const methods = useForm({
     defaultValues: getInitialValues(activeStep),
     mode: getMode(activeStep),
-    resolver: getResolver(activeStep, values),
-    shouldUnregister: true,
+    resolver: getResolver(activeStep, values)
   })
   const { reset } = methods
 
@@ -179,14 +178,13 @@ function Wizard({
     return values[step.id] || step.initialValues || {}
   }
 
-  const stepValues = methods.getValues()
   const context: WizardContextValues = {
     values,
     setValues,
     setIsLoading,
     updateStep,
-    goToPreviousStep: () => handlePrevious(stepValues),
-    goToNextStep: () => handleNext(stepValues),
+    goToPreviousStep: () => handlePrevious(methods.getValues()),
+    goToNextStep: () => handleNext(methods.getValues()),
     goToStep: (index: number) => setActiveStep(steps[index]),
     activeStep,
     stepNumber,
