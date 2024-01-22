@@ -31,7 +31,8 @@ function Wizard({
   const methods = useForm({
     defaultValues: getInitialValues(activeStep),
     mode: getMode(activeStep),
-    resolver: getResolver(activeStep, values)
+    resolver: getResolver(activeStep, values),
+    shouldUnregister: true
   })
   const { reset } = methods
 
