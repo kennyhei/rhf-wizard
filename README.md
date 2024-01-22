@@ -2,9 +2,11 @@
 
 React multistep wizard library with React Hook Form integration.
 
-This library let's you build multistep form wizards using React Hook Form. How this works is that steps are internally wrapped inside form element which has a submit handler provided by react-hook-form. You can configure validation, validation strategy and initial values for each step and make use of react-hook-form's helpful hooks and components like `useFormContext`, `<ErrorMessage />` and such in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
+This library let's you build multistep form wizards using React Hook Form. How this works is that steps are internally wrapped inside form element which has a submit handler provided by `react-hook-form`. You can configure validation, validation strategy and initial values for each step and make use of RHF's helpful hooks and components like `useFormContext`, `<ErrorMessage />` and such in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
 
 Library basically consists of [`Wizard`](#wizard) component that requires a list of [step configuration](#step-object) objects. Wizard itself collects inputted form values from each step. Collected values can be accessed using [`useWizard`](#usewizard) hook.
+
+**NOTE:** This project is based on the original [Formik version](https://github.com/kennyhei/react-formik-step-wizard/) of this same wizard. It should work nicely but as I'm not as familiar with RHF there may be some hiccups or how this wizard is used may not feel the "`react-hook-form` way" but things are subject to change based on the feedback.
 
 ## Demo
 
@@ -187,7 +189,7 @@ const steps = [
 
 Each step object defines `component` that is used to render the step. `Wizard` wraps the currently active step inside `<FormProvider><form></form></FormProvider>`. The following step object attributes are passed automatically to `react-hook-form`:
 
-- `initialValues`: Default values of the `react-hook-form` fields that are rendered in the `component`.
+- `initialValues`: Default values of the `react-hook-form` registered fields that are rendered in the `component`.
 - `validationSchema` / `validate`: Either define Yup schema or function that validates the form fields.
 - `validateOnChange`: Tells RHF to validate the form on each input's onChange event. Defaults to `true`.
 - `validateOnBlur`: Tells RHF to validate the form on each input's onBlur event. Defaults to `true`.
