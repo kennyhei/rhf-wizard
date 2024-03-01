@@ -2304,10 +2304,10 @@ validator@^13.7.0:
   resolved "https://registry.yarnpkg.com/validator/-/validator-13.11.0.tgz#23ab3fd59290c61248364eabf4067f04955fbb1b"
   integrity sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==
 
-vite-plugin-dts@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-3.7.1.tgz#b2c76749e78348d355c816c30583c2aa574c7986"
-  integrity sha512-VZJckNFpVfRAkmOxhGT5OgTUVWVXxkNQqLpBUuiNGAr9HbtvmvsPLo2JB3Xhn+o/Z9+CT6YZfYa4bX9SGR5hNw==
+vite-plugin-dts@^3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/vite-plugin-dts/-/vite-plugin-dts-3.7.3.tgz#072ec78face3b76a7a492ffeb83469ef5318ce0b"
+  integrity sha512-26eTlBYdpjRLWCsTJebM8vkCieE+p9gP3raf+ecDnzzK5E3FG6VE1wcy55OkRpfWWVlVvKkYFe6uvRHYWx7Nog==
   dependencies:
     "@microsoft/api-extractor" "7.39.0"
     "@rollup/pluginutils" "^5.1.0"
