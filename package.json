@@ -42,8 +42,8 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags",
-    "install:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && npm run build && npm pack && tar -xzf react-hook-form-step-wizard-$PACKAGE_VERSION.tgz && mv package react-hook-form-step-wizard && yarn add ./react-hook-form-step-wizard",
-    "uninstall:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && yarn remove react-hook-form-step-wizard && rm -rf react-hook-form-step-wizard-$PACKAGE_VERSION.tgz react-hook-form-step-wizard"
+    "install:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && npm run build && npm pack && tar -xzf rhf-wizard-$PACKAGE_VERSION.tgz && mv package rhf-wizard && yarn add ./rhf-wizard",
+    "uninstall:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && yarn remove rhf-wizard && rm -rf rhf-wizard-$PACKAGE_VERSION.tgz rhf-wizard"
   },
   "dependencies": {},
   "devDependencies": {

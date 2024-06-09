@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ mode }) => {
   return {
     // Base path used in index.html
-    base: '/react-hook-form-step-wizard',
+    base: '/rhf-wizard',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -23,9 +23,9 @@ export default defineConfig(({ mode }) => {
       cssMinify: true,
       lib: {
         entry: path.resolve(__dirname, 'demo/main.tsx'),
-        name: 'react-hook-form-step-wizard',
+        name: 'rhf-wizard',
         formats: ['es'],
-        fileName: (format) => `react-hook-form-step-wizard.${format}.js`
+        fileName: (format) => `rhf-wizard.${format}.js`
       },
       rollupOptions: {
         input: {
