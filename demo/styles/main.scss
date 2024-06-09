@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    @media (min-width: 1024px) {
+        font-size: 1.1rem;
+    }
+}
+
 @layer base {
     :root {
       --color-success: 54 211 153;
