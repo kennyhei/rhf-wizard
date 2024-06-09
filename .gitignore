@@ -26,5 +26,5 @@ dist-ssr
 .env*
 
 TODO.md
-react-hook-form-step-wizard/
-react-hook-form-step-wizard-*.tgz
+rhf-wizard/
+rhf-wizard-*.tgz
