@@ -1,7 +1,7 @@
 import 'vite/client'
 
-export interface Values {
-  [field: string]: any
+export interface Values<K = any> {
+  [field: string]: K
 }
 
 export interface WizardValues {
@@ -88,7 +88,7 @@ export interface StepConfig {
    * @param allValues Object containing all form field values from previous steps
    * @returns Object where keys represent field and value represents error message. Return nothing if there are no errors.
    */
-  validate?: (stepValues: Values, allValues: WizardValues) => object
+  validate?: (stepValues: Values, allValues: WizardValues) => Values<string>
   /** A Yup schema or a function that returns a Yup schema. */
   validationSchema?: any,
   /**
@@ -116,7 +116,7 @@ export interface WizardProps {
   onCompleted?: (values: Values) => void,
   /**
    * Function that is called when step is changed to another one.
-   * 
+   *
    * @param fromStep Current step object when function was called
    * @param toStep Proceeding step object when function was called
    * @param allValues Object containing all form field values from previous steps
