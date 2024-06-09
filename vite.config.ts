@@ -24,13 +24,13 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
       lib: {
         entry: path.resolve(__dirname, 'src/index.ts'),
-        name: 'react-hook-form-step-wizard',
+        name: 'rhf-wizard',
         formats: ['es'],
-        fileName: (format) => `react-hook-form-step-wizard.${format}.js`
+        fileName: (format) => `rhf-wizard.${format}.js`
       },
       rollupOptions: {
         // Excludes react from build file
-        external: ['react', 'react-dom', 'formik'],
+        external: ['react', 'react-dom', 'react-hook-form'],
         output: {
           globals: {
             react: 'React'
