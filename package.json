@@ -1,25 +1,25 @@
 {
-  "name": "react-hook-form-step-wizard",
+  "name": "rhf-wizard",
   "author": "kennyhei <kenny_heinonen@hotmail.com>",
-  "description": "React multistep wizard with react-hook-form integration",
-  "homepage": "https://github.com/kennyhei/react-hook-form-step-wizard",
+  "description": "Multistep wizard to React Hook Form",
+  "homepage": "https://github.com/kennyhei/rhf-wizard",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
-  "module": "./dist/react-hook-form-step-wizard.es.js",
+  "module": "./dist/rhf-wizard.es.js",
   "files": [
     "dist",
     "src"
   ],
   "exports": {
     ".": {
-      "import": "./dist/react-hook-form-step-wizard.es.js"
+      "import": "./dist/rhf-wizard.es.js"
     }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kennyhei/react-hook-form-step-wizard"
+    "url": "https://github.com/kennyhei/rhf-wizard"
   },
   "keywords": [
     "react",
@@ -30,7 +30,7 @@
     "react-wizard",
     "form-wizard",
     "step-wizard",
-    "react-hook-form-step-wizard",
+    "rhf-wizard",
     "kennyhei"
   ],
   "scripts": {
