@@ -8,7 +8,7 @@ import { AppContext } from '../main'
 function WizardStepWrapper() {
   const { isAnimated } = useContext(AppContext)
   const { activeStep } = useWizard()
-  const { getValues, register } = useFormContext()
+  const { register, formState } = useFormContext()
 
   let variants = {}
   if (isAnimated) {
@@ -35,7 +35,7 @@ function WizardStepWrapper() {
               <DefaultStepContentRenderer
                 register={register}
                 activeStep={activeStep} 
-                values={getValues()}
+                initialValues={formState.defaultValues}
               />
             )}
           </div>

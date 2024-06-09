@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { getMode, getResolver } from '../helpers/form'
 import { WizardContext } from '../helpers/hooks'
@@ -28,8 +28,12 @@ function Wizard({
   // Gather data of all forms from each step here
   const [ values, setValues ] = useState<WizardValues>({})
 
+  const defaultValues = useMemo(() => {
+    return getInitialValues(activeStep);
+  }, [activeStep])
+
   const methods = useForm({
-    defaultValues: getInitialValues(activeStep),
+    defaultValues,
     mode: getMode(activeStep),
     resolver: getResolver(activeStep, values),
     shouldUnregister: true
@@ -45,8 +49,8 @@ function Wizard({
 
   // Reset initial values when active step is changed
   useEffect(() => {
-    reset(getInitialValues(activeStep));
-  }, [activeStep, reset]);
+    reset(defaultValues);
+  }, [defaultValues]);
 
   // Hash logic
   useEffect(() => {

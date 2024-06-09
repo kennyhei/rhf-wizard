@@ -4,13 +4,13 @@ import { ErrorMessage } from '@hookform/error-message'
 interface Props {
   register: any,
   activeStep: Step,
-  values: any
+  initialValues: any,
 }
 
 function DefaultStepContentRenderer({
   register,
   activeStep,
-  values
+  initialValues,
 }: Props) {
 
   function humanize(value: string) {
@@ -48,7 +48,7 @@ function DefaultStepContentRenderer({
       <h2>{humanize(activeStep.id)}</h2>
       <p>{activeStep.helpText}</p>
       <div className='flex flex-row gap-6 flex-wrap'>
-        {Object.keys(values || {}).map(field => (
+        {Object.keys(initialValues || {}).map(field => (
             <div key={field} className='grow shrink-0 basis-72'>
               <label htmlFor={field} className='block mb-2 text-sm font-medium text-white'>{humanize(field)}</label>
               <input

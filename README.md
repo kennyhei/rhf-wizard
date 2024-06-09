@@ -10,7 +10,7 @@ Library basically consists of [`Wizard`](#wizard) component that requires a list
 
 ## Demo
 
-https://kennyhei.github.io/react-hook-form-step-wizard/
+https://kennyhei.github.io/rhf-wizard/
 
 Small demo showcasing the wizard and various use cases such as:
 
@@ -56,12 +56,12 @@ You can find more information on usage below.
 
 NPM:
 ```
-npm install react-hook-form-step-wizard --save
+npm install rhf-wizard --save
 ```
 
 Yarn:
 ```
-yarn add react-hook-form-step-wizard react-hook-form
+yarn add rhf-wizard react-hook-form
 ```
 
 **Note:** It is also recommended to install `yup` for validation (it is used in examples below). You can install `yup` with `npm install yup --save` or `yarn add yup`. However, it's not mandatory as you can write your validation function to [steps](#step-object) with plain JS as well (see `validate`).
@@ -71,7 +71,7 @@ yarn add react-hook-form-step-wizard react-hook-form
 ```js
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Wizard, useWizard, BasicFooter } from 'react-hook-form-step-wizard'
+import { Wizard, useWizard, BasicFooter } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import * as Yup from 'yup'
@@ -203,7 +203,7 @@ You can view the full list of step options [here](#step-object).
 If you plan to have form fields in your step component, you should use RHF's `register` method to render fields and `ErrorMessage` to render error messages. For instance, this is what `StepName` and `StepAge` could look like:
 
 ```js
-import { useWizard } from 'react-hook-form-step-wizard'
+import { useWizard } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 
@@ -280,7 +280,7 @@ Here's what the finished code looks like:
 
 ```js
 import React from 'react'
-import { useWizard, Wizard } from 'react-hook-form-step-wizard'
+import { useWizard, Wizard } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import * as Yup from 'yup'
@@ -381,7 +381,7 @@ Here's an example of simple navigation component:
 
 ```js
 import React from 'react'
-import { Wizard, useWizard } from 'react-hook-form-step-wizard'
+import { Wizard, useWizard } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 
 const steps = [
@@ -434,12 +434,12 @@ function App() {
 
 ### BasicFooter
 
-If you don't wish to create your own navigation component, a basic footer with navigation buttons is included in `react-hook-form-step-wizard`. Here's how you can use it:
+If you don't wish to create your own navigation component, a basic footer with navigation buttons is included in `rhf-wizard`. Here's how you can use it:
 
 ```js
 
 import React from 'react'
-import { Wizard, BasicFooter } from 'react-hook-form-step-wizard'
+import { Wizard, BasicFooter } from 'rhf-wizard'
 
 const steps = [
   { id: 'Step1', component: <h1>Step 1</h1>, hidePrevious: true },
@@ -518,7 +518,7 @@ List of step objects that are passed to `Wizard` have various options you can se
 
 ## Advanced topics
 
-For more advanced use of the wizard I recommend playing with [demo](https://kennyhei.github.io/react-hook-form-step-wizard/) and reading code in `demo/` folder. Some topics are covered below:
+For more advanced use of the wizard I recommend playing with [demo](https://kennyhei.github.io/rhf-wizard/) and reading code in `demo/` folder. Some topics are covered below:
 
 ### Skipping steps
 
@@ -530,7 +530,7 @@ You can define a `shouldSkip` function that returns boolean value in the step ob
 
 Example:
 ```js
-import { Wizard, useWizard } from 'react-hook-form-step-wizard'
+import { Wizard, useWizard } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 
@@ -664,7 +664,7 @@ const steps = [
 
 ### Saving form values in sessionStorage
 
-If you want form fields to persist e.g. between page refreshes, you can use `sessionStorage` to your advantage. `react-hook-form-step-wizard` doesn't offer solution out of the box but here's one way you can implement the logic:
+If you want form fields to persist e.g. between page refreshes, you can use `sessionStorage` to your advantage. `rhf-wizard` doesn't offer solution out of the box but here's one way you can implement the logic:
 
 ```js
 function getStepInitialValues(stepId) {
@@ -713,7 +713,7 @@ Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in y
 Example:
 
 ```js
-import { Wizard, useWizard } from 'react-hook-form-step-wizard'
+import { Wizard, useWizard } from 'rhf-wizard'
 import { useFormContext } from 'react-hook-form'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -756,7 +756,7 @@ return (
 You can wrap steps by defining your own wrapper component. Here's an example:
 
 ```js
-import { useWizard, Wizard } from 'react-hook-form-step-wizard'
+import { useWizard, Wizard } from 'rhf-wizard'
 
 function StepWrapper() {
   const { activeStep } = useWizard()
@@ -785,7 +785,7 @@ function App() {
 You can create header for wizard by defining your own header component. Here's an example:
 
 ```js
-import { useWizard, Wizard } from 'react-hook-form-step-wizard'
+import { useWizard, Wizard } from 'rhf-wizard'
 
 function Header() {
   const { activeStep } = useWizard()
