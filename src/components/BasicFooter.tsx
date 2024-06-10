@@ -1,9 +1,9 @@
-import { useWizard } from '../helpers/hooks'
-import { useFormContext } from 'react-hook-form'
+import { useWizard } from "../helpers/hooks";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
-  textNext?: string,
-  textPrevious?: string
+  textNext?: string;
+  textPrevious?: string;
 }
 
 function BasicFooter({ textNext, textPrevious }: Props) {
@@ -15,38 +15,54 @@ function BasicFooter({ textNext, textPrevious }: Props) {
       disablePrevious,
       hideNext,
       disableNext,
-      disableNextOnErrors
+      disableNextOnErrors,
     },
-  } = useWizard()
-  const { formState: { isValid }, trigger } = useFormContext()
-  disableNext = isLoading || disableNext || (disableNextOnErrors && !isValid)
+  } = useWizard();
+  const {
+    formState: { isValid },
+    trigger,
+  } = useFormContext();
+  disableNext = isLoading || disableNext || (disableNextOnErrors && !isValid);
 
   return (
-    <div className='navigation'>
-      <div className={'navigation-wrapper ' + (hidePrevious ? 'justify-end' : 'justify-between')}>
+    <div className="navigation">
+      <div
+        className={
+          "navigation-wrapper " +
+          (hidePrevious ? "justify-end" : "justify-between")
+        }
+      >
         {/* 'Previous' button */}
         {!hidePrevious && (
           <button
-            type='button'
+            type="button"
             disabled={disablePrevious}
             onClick={goToPreviousStep}
           >
-            {textPrevious || 'Previous'}
+            {textPrevious || "Previous"}
           </button>
         )}
         {/* 'Next' button */}
         {!hideNext && (
           // Still possible to trigger submit even though button is disabled.
           // Main reason is to display validation errors.
-          <div onClick={disableNext ? () => { trigger() } : undefined}>
-            <button type='submit' disabled={disableNext}>
-              {isLoading ? 'Loading...' : textNext || 'Next'}
+          <div
+            onClick={
+              disableNext
+                ? () => {
+                    trigger();
+                  }
+                : undefined
+            }
+          >
+            <button type="submit" disabled={disableNext}>
+              {isLoading ? "Loading..." : textNext || "Next"}
             </button>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default BasicFooter
+export default BasicFooter;

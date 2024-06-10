@@ -1,9 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { getMode, getResolver } from '../helpers/form'
-import { WizardContext } from '../helpers/hooks'
-import { buildHashSteps, resolveHashStep, updateHash } from '../helpers/hash'
-import { WizardProps, StepConfig as Step, WizardContextValues, WizardValues, Values } from '../types'
+import { useEffect, useMemo, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { getMode, getResolver } from "../helpers/form";
+import { WizardContext } from "../helpers/hooks";
+import { buildHashSteps, resolveHashStep, updateHash } from "../helpers/hash";
+import {
+  WizardProps,
+  StepConfig as Step,
+  WizardContextValues,
+  WizardValues,
+  Values,
+} from "../types";
 
 function Wizard({
   steps,
@@ -13,39 +19,39 @@ function Wizard({
   // Components
   header,
   wrapper,
-  footer
+  footer,
 }: WizardProps) {
-  let initialStep: Step = steps[0]
-  let hashes = {}
+  let initialStep: Step = steps[0];
+  let hashes = {};
   if (enableHash) {
-    hashes = buildHashSteps(steps)
-    initialStep = resolveHashStep(hashes) || initialStep
+    hashes = buildHashSteps(steps);
+    initialStep = resolveHashStep(hashes) || initialStep;
   }
 
   // State
-  const [ activeStep, setActiveStep ] = useState(initialStep)
-  const [ isLoading, setIsLoading ] = useState<boolean>(false)
+  const [activeStep, setActiveStep] = useState(initialStep);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   // Gather data of all forms from each step here
-  const [ values, setValues ] = useState<WizardValues>({})
+  const [values, setValues] = useState<WizardValues>({});
 
   const defaultValues = useMemo(() => {
     return getInitialValues(activeStep);
-  }, [activeStep])
+  }, [activeStep]);
 
   const methods = useForm({
     defaultValues,
     mode: getMode(activeStep),
     resolver: getResolver(activeStep, values),
-    shouldUnregister: true
-  })
-  const { reset } = methods
+    shouldUnregister: true,
+  });
+  const { reset } = methods;
 
   // Variables
-  const currentIndex: number = steps.findIndex(s => s.id === activeStep.id)
-  const stepNumber: number = currentIndex + 1
-  const totalSteps: number = steps.length
-  const isFirstStep: boolean = stepNumber === 1
-  const isLastStep: boolean = stepNumber === totalSteps
+  const currentIndex: number = steps.findIndex((s) => s.id === activeStep.id);
+  const stepNumber: number = currentIndex + 1;
+  const totalSteps: number = steps.length;
+  const isFirstStep: boolean = stepNumber === 1;
+  const isLastStep: boolean = stepNumber === totalSteps;
 
   // Reset initial values when active step is changed
   useEffect(() => {
@@ -55,132 +61,136 @@ function Wizard({
   // Hash logic
   useEffect(() => {
     if (!enableHash) {
-      return
+      return;
     }
-    window.addEventListener('hashchange', handleHashChange)
-    updateHash(hashes, activeStep)
-    return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [activeStep])
+    window.addEventListener("hashchange", handleHashChange);
+    updateHash(hashes, activeStep);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [activeStep]);
 
   function handleHashChange() {
-    const step = resolveHashStep(hashes)
+    const step = resolveHashStep(hashes);
     if (step?.id === activeStep.id) {
-      return
+      return;
     }
-    setActiveStep(step)
+    setActiveStep(step);
   }
 
   // Step resolve logic
   async function _getProceedingStep(
     remainingSteps: Step[],
     newValues: WizardValues,
-    direction: number
+    direction: number,
   ) {
-    let proceedingStep
+    let proceedingStep;
     for (let idx = 0; idx < remainingSteps.length; ++idx) {
-      const step = remainingSteps[idx]
+      const step = remainingSteps[idx];
       // Check if "shouldSkip" attr exists
       if (step.shouldSkip === undefined) {
-        proceedingStep = step
-        break
+        proceedingStep = step;
+        break;
       }
-      const shouldSkip = await step.shouldSkip(newValues, direction)
+      const shouldSkip = await step.shouldSkip(newValues, direction);
       if (!shouldSkip) {
-        proceedingStep = step
-        break
+        proceedingStep = step;
+        break;
       }
     }
-    return proceedingStep
+    return proceedingStep;
   }
 
   async function _resolveNextStep(newValues: WizardValues) {
     // Loop remaining steps until non-skippable step is found
-    const remainingSteps = steps.slice(currentIndex + 1)
-    const nextStep = await _getProceedingStep(remainingSteps, newValues, 1)
-    return nextStep
+    const remainingSteps = steps.slice(currentIndex + 1);
+    const nextStep = await _getProceedingStep(remainingSteps, newValues, 1);
+    return nextStep;
   }
 
   async function _resolvePreviousStep(newValues: WizardValues) {
     // Loop remaining steps backwards until non-skippable step is found
-    const remainingSteps = steps.slice(0, currentIndex).reverse()
-    const previousStep = await _getProceedingStep(remainingSteps, newValues, -1)
-    return previousStep
+    const remainingSteps = steps.slice(0, currentIndex).reverse();
+    const previousStep = await _getProceedingStep(
+      remainingSteps,
+      newValues,
+      -1,
+    );
+    return previousStep;
   }
 
   // Step handlers
   function handleCompleted(values: WizardValues) {
     if (!onCompleted) {
-      return
+      return;
     }
     // Flatten values, e.g.
     // `{ StepName: { name: 'John' }, StepAge: { age: 10 } }` => `{ name: 'John', age: 10 }`
-    let result = {}
+    let result = {};
     Object.keys(values).forEach((stepId: string | number) => {
-      result = { ...result, ...values[stepId] }
-    })
-    onCompleted(result)
+      result = { ...result, ...values[stepId] };
+    });
+    onCompleted(result);
   }
 
   async function handleNext(stepValues: Values) {
     try {
       // Run custom submit handler first
       if (activeStep.onSubmit) {
-        setIsLoading(true)
-        stepValues = await activeStep.onSubmit(stepValues, values)
-        setIsLoading(false)
+        setIsLoading(true);
+        stepValues = await activeStep.onSubmit(stepValues, values);
+        setIsLoading(false);
       }
-      const wizardValues =  {
+      const wizardValues = {
         ...values,
-        [activeStep.id]: { ...stepValues }
-      }
-      setValues(wizardValues)
-      const nextStep = await _resolveNextStep(wizardValues)
+        [activeStep.id]: { ...stepValues },
+      };
+      setValues(wizardValues);
+      const nextStep = await _resolveNextStep(wizardValues);
       if (!nextStep) {
         // No next step found, wizard has been completed
         // so let's call handleCompleted
-        handleCompleted(wizardValues)
-        return
+        handleCompleted(wizardValues);
+        return;
       }
       // Additional handler when step is changed
       if (onStepChanged) {
-        onStepChanged(activeStep, nextStep, wizardValues)
+        onStepChanged(activeStep, nextStep, wizardValues);
       }
-      setActiveStep(nextStep)
+      setActiveStep(nextStep);
     } catch (error: any) {
-      console.log(error)
-      setIsLoading(false)
+      console.log(error);
+      setIsLoading(false);
     }
   }
 
   async function handlePrevious(stepValues: Values) {
-    let wizardValues = null
+    let wizardValues = null;
     if (activeStep.keepValuesOnPrevious ?? true) {
       wizardValues = {
         ...values,
-        [activeStep.id]: { ...stepValues }
-      }
-      setValues(wizardValues)
+        [activeStep.id]: { ...stepValues },
+      };
+      setValues(wizardValues);
     }
-    wizardValues = wizardValues || values
-    const previousStep = await _resolvePreviousStep(wizardValues)
+    wizardValues = wizardValues || values;
+    const previousStep = await _resolvePreviousStep(wizardValues);
     if (!previousStep) {
-      return
+      return;
     }
     // Additional handler when step is changed
     if (onStepChanged) {
-      onStepChanged(activeStep, previousStep, wizardValues)
+      onStepChanged(activeStep, previousStep, wizardValues);
     }
-    setActiveStep(previousStep)
+    setActiveStep(previousStep);
   }
 
   // Utility function
   function updateStep(key: string, value: any) {
-    setActiveStep({ ...activeStep, [key]: value })
+    setActiveStep({ ...activeStep, [key]: value });
   }
 
   // Misc
   function getInitialValues(step: Step) {
-    return values[step.id] || step.initialValues || {}
+    return values[step.id] || step.initialValues || {};
   }
 
   const context: WizardContextValues = {
@@ -196,8 +206,8 @@ function Wizard({
     totalSteps,
     isLoading,
     isFirstStep,
-    isLastStep
-  }
+    isLastStep,
+  };
 
   return (
     <WizardContext.Provider value={context}>
@@ -209,7 +219,7 @@ function Wizard({
         </form>
       </FormProvider>
     </WizardContext.Provider>
-  )
+  );
 }
 
-export default Wizard
+export default Wizard;

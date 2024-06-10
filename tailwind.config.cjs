@@ -8,15 +8,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        success: 'rgb(var(--color-success) / <alpha-value>)',
+        success: "rgb(var(--color-success) / <alpha-value>)",
       },
       screens: {
-        'xs': '512px'
-      }
+        xs: "512px",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
-    themes: ["dark"]
-  }
-}
+    themes: ["dark"],
+  },
+};
