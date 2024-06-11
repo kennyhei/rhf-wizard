@@ -30,8 +30,7 @@
     "react-wizard",
     "form-wizard",
     "step-wizard",
-    "rhf-wizard",
-    "kennyhei"
+    "rhf-wizard"
   ],
   "scripts": {
     "dev": "vite",
