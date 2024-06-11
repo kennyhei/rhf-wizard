@@ -8899,7 +8899,9 @@ function Qx(e, t) {
   if (e.validate)
     return Gx(e.validate, t);
 }
-const my = V.createContext(void 0);
+const my = V.createContext(
+  void 0
+);
 function Gi() {
   const e = V.useContext(my);
   if (e === void 0)
@@ -8918,7 +8920,9 @@ function wd(e) {
   return e[t];
 }
 function Xx(e, t) {
-  const n = Object.keys(e).find((r) => e[r].id === t.id);
+  const n = Object.keys(e).find(
+    (r) => e[r].id === t.id
+  );
   window.location.hash = n || window.location.hash;
 }
 function Zx({
@@ -8970,7 +8974,11 @@ function Zx({
   }
   async function M(B) {
     const C = e.slice(0, h).reverse();
-    return await P(C, B, -1);
+    return await P(
+      C,
+      B,
+      -1
+    );
   }
   function H(B) {
     if (!t)
@@ -13809,14 +13817,24 @@ function EE({
     /* @__PURE__ */ D.jsx("div", { className: "flex flex-row gap-6 flex-wrap", children: Object.keys(n || {}).map((l) => {
       var a, u;
       return /* @__PURE__ */ D.jsxs("div", { className: "grow shrink-0 basis-72", children: [
-        /* @__PURE__ */ D.jsx("label", { htmlFor: l, className: "block mb-2 text-sm font-medium text-white", children: r(l) }),
+        /* @__PURE__ */ D.jsx(
+          "label",
+          {
+            htmlFor: l,
+            className: "block mb-2 text-sm font-medium text-white",
+            children: r(l)
+          }
+        ),
         /* @__PURE__ */ D.jsx(
           "input",
           {
             id: l,
             type: o == null ? void 0 : o.inputTypes[l],
             placeholder: (a = o == null ? void 0 : o.placeholders) == null ? void 0 : a[l],
-            ...i((u = s == null ? void 0 : s.fields) == null ? void 0 : u[l], o == null ? void 0 : o.inputTypes[l]),
+            ...i(
+              (u = s == null ? void 0 : s.fields) == null ? void 0 : u[l],
+              o == null ? void 0 : o.inputTypes[l]
+            ),
             ...e(l),
             className: "bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
           }
@@ -14088,46 +14106,48 @@ function GE() {
     goToPreviousStep: e,
     isFirstStep: t,
     isLoading: n,
-    activeStep: {
-      hidePrevious: r,
-      hideNext: i,
-      disableNext: s,
-      disableNextOnErrors: o
-    }
+    activeStep: { hidePrevious: r, hideNext: i, disableNext: s, disableNextOnErrors: o }
   } = Gi();
-  const { formState: { isValid: l }, trigger: a } = lc();
-  return s = n || s || o && !l, /* @__PURE__ */ D.jsx("div", { className: "navigation", children: /* @__PURE__ */ D.jsxs("div", { className: "navigation-wrapper " + (r ? "justify-end" : "justify-between"), children: [
-    !r && /* @__PURE__ */ D.jsxs(
-      "button",
-      {
-        className: "btn",
-        onClick: e,
-        disabled: t,
-        type: "button",
-        children: [
-          /* @__PURE__ */ D.jsx(RE, { className: "w-8 h-8 fill-current" }),
-          /* @__PURE__ */ D.jsx("span", { children: "Previous" })
-        ]
-      }
-    ),
-    !i && // Still possible to trigger submit even though button is disabled.
-    // Main reason is to display validation errors.
-    /* @__PURE__ */ D.jsx("div", { onClick: s ? () => {
-      a();
-    } : void 0, children: /* @__PURE__ */ D.jsxs(
-      "button",
-      {
-        className: "btn",
-        disabled: s,
-        type: "submit",
-        children: [
-          n && /* @__PURE__ */ D.jsx("span", { className: "mr-1 loading", children: /* @__PURE__ */ D.jsx(KE, { size: 11, color: "#757575" }) }),
-          /* @__PURE__ */ D.jsx("span", { children: "Next" }),
-          /* @__PURE__ */ D.jsx(NE, { className: "w-8 h-8 fill-current" })
-        ]
-      }
-    ) })
-  ] }) });
+  const {
+    formState: { isValid: l },
+    trigger: a
+  } = lc();
+  return s = n || s || o && !l, /* @__PURE__ */ D.jsx("div", { className: "navigation", children: /* @__PURE__ */ D.jsxs(
+    "div",
+    {
+      className: "navigation-wrapper " + (r ? "justify-end" : "justify-between"),
+      children: [
+        !r && /* @__PURE__ */ D.jsxs(
+          "button",
+          {
+            className: "btn",
+            onClick: e,
+            disabled: t,
+            type: "button",
+            children: [
+              /* @__PURE__ */ D.jsx(RE, { className: "w-8 h-8 fill-current" }),
+              /* @__PURE__ */ D.jsx("span", { children: "Previous" })
+            ]
+          }
+        ),
+        !i && // Still possible to trigger submit even though button is disabled.
+        // Main reason is to display validation errors.
+        /* @__PURE__ */ D.jsx(
+          "div",
+          {
+            onClick: s ? () => {
+              a();
+            } : void 0,
+            children: /* @__PURE__ */ D.jsxs("button", { className: "btn", disabled: s, type: "submit", children: [
+              n && /* @__PURE__ */ D.jsx("span", { className: "mr-1 loading", children: /* @__PURE__ */ D.jsx(KE, { size: 11, color: "#757575" }) }),
+              /* @__PURE__ */ D.jsx("span", { children: "Next" }),
+              /* @__PURE__ */ D.jsx(NE, { className: "w-8 h-8 fill-current" })
+            ] })
+          }
+        )
+      ]
+    }
+  ) });
 }
 function QE() {
   const { isAnimated: e, setIsAnimated: t } = V.useContext($c), { stepNumber: n, totalSteps: r } = Gi(), i = `${(n - 1) / (r - 1) * 100}%`;
@@ -14139,10 +14159,17 @@ function QE() {
           /* @__PURE__ */ D.jsx("span", { className: "hidden min-[400px]:inline", children: "Step" }),
           " ",
           n,
-          " / ",
+          " ",
+          "/ ",
           r
         ] }),
-        /* @__PURE__ */ D.jsx("a", { href: "https://github.com/kennyhei/rhf-wizard", target: "_blank", children: /* @__PURE__ */ D.jsx("img", { src: "/rhf-wizard/github-mark-white.svg", className: "rounded-md w-9 my-0" }) })
+        /* @__PURE__ */ D.jsx("a", { href: "https://github.com/kennyhei/rhf-wizard", target: "_blank", children: /* @__PURE__ */ D.jsx(
+          "img",
+          {
+            src: "/rhf-wizard/github-mark-white.svg",
+            className: "rounded-md w-9 my-0"
+          }
+        ) })
       ] })
     ] }),
     /* @__PURE__ */ D.jsx("div", { className: "w-full bg-gray-600 h-1 mt-[17px]", children: /* @__PURE__ */ D.jsx(
@@ -14153,7 +14180,13 @@ function QE() {
       }
     ) }),
     /* @__PURE__ */ D.jsx("div", { className: "flex justify-end pr-5 prose max-w-none pt-1", children: /* @__PURE__ */ D.jsxs("label", { className: "label cursor-pointer px-0", children: [
-      /* @__PURE__ */ D.jsx("span", { className: "label-text pr-2 " + (e ? "text-success" : "text-gray-300"), children: "Animate" }),
+      /* @__PURE__ */ D.jsx(
+        "span",
+        {
+          className: "label-text pr-2 " + (e ? "text-success" : "text-gray-300"),
+          children: "Animate"
+        }
+      ),
       /* @__PURE__ */ D.jsx(
         "input",
         {
@@ -14166,7 +14199,9 @@ function QE() {
     ] }) })
   ] });
 }
-const $c = V.createContext({});
+const $c = V.createContext(
+  {}
+);
 function YE() {
   const [e, t] = V.useState(!0);
   return /* @__PURE__ */ D.jsx($c.Provider, { value: { isAnimated: e, setIsAnimated: t }, children: /* @__PURE__ */ D.jsx(
@@ -14183,6 +14218,4 @@ function YE() {
     }
   ) });
 }
-Ql.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ D.jsx(YE, {})
-);
+Ql.createRoot(document.getElementById("root")).render(/* @__PURE__ */ D.jsx(YE, {}));
