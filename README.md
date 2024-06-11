@@ -6,7 +6,7 @@ This library let's you build multistep form wizards using React Hook Form. How t
 
 Library basically consists of [`Wizard`](#wizard) component that requires a list of [step configuration](#step-object) objects. Wizard itself collects inputted form values from each step. Collected values can be accessed using [`useWizard`](#usewizard) hook.
 
-**NOTE:** This project is based on the original [Formik version](https://github.com/kennyhei/react-formik-step-wizard/) of this same wizard. It should work nicely but as I'm not as familiar with RHF there may be some hiccups or how this wizard is used may not feel the "`react-hook-form` way" but things are subject to change based on the feedback.
+**NOTE:** This project is based on the original [Formik version](https://github.com/kennyhei/react-formik-step-wizard/) of this same wizard. As it's almost a direct copy of the original project, there may be some hiccups or how this wizard is used may not feel the *"`react-hook-form` way"* but things are subject to change based on the feedback.
 
 ## Demo
 
