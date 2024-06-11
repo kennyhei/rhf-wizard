@@ -491,7 +491,7 @@ function App() {
 }
 ```
 
-Note that `BasicNavigation` has two additional props `textNext` and `textPrevious` for customizing button texts. By default they are "Next" and "Previous".
+Note that `BasicFooter` has two additional props `textNext` and `textPrevious` for customizing button texts. By default they are "Next" and "Previous".
 
 You can customize looks of the basic footer by defining CSS for classes `.navigation` and `.navigation-wrapper`.
 
