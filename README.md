@@ -6,7 +6,7 @@ This library let's you build multistep form wizards using React Hook Form. How t
 
 Library basically consists of [`Wizard`](#wizard) component that requires a list of [step configuration](#step-object) objects. Wizard itself collects inputted form values from each step. Collected values can be accessed using [`useWizard`](#usewizard) hook.
 
-**NOTE:** This project is based on the original [Formik version](https://github.com/kennyhei/react-formik-step-wizard/) of this same wizard. As it's almost a direct copy of the original project, there may be some hiccups or how this wizard is used may not feel the *"`react-hook-form` way"* but things are subject to change based on the feedback.
+**NOTE:** This project is based on the original [Formik version](https://github.com/kennyhei/react-formik-step-wizard/) of this same wizard. As it's almost a direct copy of the original project, there may be some hiccups or how this wizard is used may not feel the _"`react-hook-form` way"_ but things are subject to change based on the feedback.
 
 ## Demo
 
@@ -123,7 +123,7 @@ function App() {
       component: <StepName />,
       initialValues: { name: "John" },
       validationSchema: Yup.object({
-        name: Yup.string().required("This field is required"),
+        name: Yup.string().required("Name is required"),
       }),
       hidePrevious: true,
     },
@@ -132,7 +132,7 @@ function App() {
       component: <StepAge />,
       initialValues: { age: 30 },
       validationSchema: Yup.object({
-        age: Yup.number().min(0).max(125).required("This field is required"),
+        age: Yup.number().positive().required("Age is required"),
       }),
     },
     {
@@ -257,7 +257,10 @@ Now you can pass the list to `Wizard`:
   onStepChanged={(fromStep, toStep, wizardValues) => {
     console.log("step changed", fromStep.id, toStep.id, wizardValues);
   }}
-  onCompleted={(values) => console.log("wizard completed", values)}
+  onCompleted={(values) => {
+    alert("wizard completed");
+    console.log("wizard completed", values);
+  }}
 />
 ```
 
@@ -370,7 +373,10 @@ function App() {
       onStepChanged={(fromStep, toStep, wizardValues) => {
         console.log("step changed", fromStep.id, toStep.id, wizardValues);
       }}
-      onCompleted={(values) => console.log("wizard completed", values)}
+      onCompleted={(values) => {
+        alert("wizard completed");
+        console.log("wizard completed", values);
+      }}
     />
   );
 }
@@ -650,11 +656,12 @@ Example:
 
 ```js
 function StepName() {
+  const { register } = useFormContext();
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
-        <Field name="name" type="text" />
+        <input {...register("name")} />
         <ErrorMessage name="name" />
       </div>
       <button type="submit">Next</button>
@@ -663,12 +670,13 @@ function StepName() {
 }
 
 function StepFullName() {
+  const { register } = useFormContext();
   const { goToPreviousStep } = useWizard();
   return (
     <div>
       <div>
         <label htmlFor="fullName">Full Name</label>
-        <Field name="fullName" type="text" />
+        <input {...register("fullName")} />
         <ErrorMessage name="fullName" />
       </div>
       <button type="button" onClick={goToPreviousStep}>
@@ -713,6 +721,17 @@ function getStepInitialValues(stepId) {
   return values?.[stepId];
 }
 
+function StepName() {
+  const { register } = useFormContext();
+  return (
+    <div>
+      <label htmlFor="name">Name</label>
+      <input {...register("name")} />
+      <ErrorMessage name="name" />
+    </div>
+  );
+}
+
 const steps = [
   {
     id: "StepName",
@@ -720,6 +739,15 @@ const steps = [
     initialValues: getStepInitialValues("StepName") || {
       name: "",
     },
+  },
+  {
+    id: "StepInstructions",
+    component: (
+      <p>
+        Refresh page to see that value of "Name" input is prefilled from session
+        storage.
+      </p>
+    ),
   },
 ];
 
@@ -729,6 +757,7 @@ return (
     onStepChanged={(fromStep, toStep, wizardValues) => {
       sessionStorage.setItem("wizardValues", JSON.stringify(wizardValues));
     }}
+    footer={<BasicFooter />}
   />
 );
 ```
@@ -756,13 +785,18 @@ Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in y
 Example:
 
 ```js
-import { Wizard, useWizard } from "rhf-wizard";
+import { BasicFooter, Wizard, useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 
 function Field({ name, type }) {
   const { register } = useFormContext();
-  return <input type={type} {...register(name)} />;
+  return (
+    <div>
+      <label htmlFor={name}>{name}</label>
+      <input type={type} {...register(name)} />
+    </div>
+  );
 }
 
 const steps = [
@@ -795,7 +829,7 @@ function Wrapper() {
   );
 }
 
-return <Wizard steps={steps} wrapper={<Wrapper />} />;
+return <Wizard steps={steps} wrapper={<Wrapper />} footer={<BasicFooter />} />;
 ```
 
 ### Creating wrapper for steps
@@ -833,7 +867,7 @@ function Header() {
   const { activeStep } = useWizard();
   return (
     <div style={{ padding: "2rem 0", background: "yellow" }}>
-      <h1 style={{ textAlign: "center" }}>{activeStep.id}</h1>
+      <h1 style={{ textAlign: "center" }}>Header of #{activeStep.id}</h1>
     </div>
   );
 }
