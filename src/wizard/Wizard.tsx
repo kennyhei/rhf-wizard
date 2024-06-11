@@ -21,12 +21,10 @@ function Wizard({
   wrapper,
   footer,
 }: WizardProps) {
-  let initialStep: Step = steps[0];
-  let hashes = {};
-  if (enableHash) {
-    hashes = buildHashSteps(steps);
-    initialStep = resolveHashStep(hashes) || initialStep;
-  }
+  const hashes = useMemo(() => {
+    return enableHash ? buildHashSteps(steps) : {};
+  }, [enableHash, steps]);
+  const initialStep: Step = resolveHashStep(hashes) || steps[0];
 
   // State
   const [activeStep, setActiveStep] = useState(initialStep);
