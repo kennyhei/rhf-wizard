@@ -1,7 +1,7 @@
 {
   "name": "rhf-wizard",
   "author": "kennyhei <kenny_heinonen@hotmail.com>",
-  "description": "Multistep wizard to React Hook Form",
+  "description": "Multistep wizard for React Hook Form",
   "homepage": "https://github.com/kennyhei/rhf-wizard",
   "version": "1.0.0",
   "license": "MIT",
