@@ -2,7 +2,7 @@
 
 React multistep wizard library with React Hook Form integration.
 
-This library let's you build multistep form wizards using React Hook Form. How this works is that steps are internally wrapped inside form element which has a submit handler provided by `react-hook-form`. You can configure validation, validation strategy and initial values for each step and make use of RHF's helpful hooks and components like `useFormContext`, `<ErrorMessage />` and such in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
+This library let's you build multistep form wizards using React Hook Form. How this works is that steps are internally wrapped inside form element which has a submit handler provided by `react-hook-form`. You can configure validation, validation strategy and initial values for each step and connect to RHF with `useFormContext` in your step components. Form submission is handled by the wizard automatically but that is customizable to some extent as well.
 
 Library basically consists of [`Wizard`](#wizard) component that requires a list of [step configuration](#step-object) objects. Wizard itself collects inputted form values from each step. Collected values can be accessed using [`useWizard`](#usewizard) hook.
 
