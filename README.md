@@ -75,27 +75,26 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Wizard, useWizard, BasicFooter } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import * as Yup from "yup";
 
 function StepName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <label htmlFor="name">Name</label>
       <input {...register("name")} />
-      <ErrorMessage name="name" />
+      {errors.name && <span>{errors.name.message}</span>}
     </div>
   );
 }
 
 function StepAge() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <label htmlFor="age">Age</label>
       <input type="number" min="0" max="125" {...register("age")} />
-      <ErrorMessage name="age" />
+      {errors.age && <span>{errors.age.message}</span>}
     </div>
   );
 }
@@ -206,21 +205,20 @@ You can view the full list of step options [here](#step-object).
 
 ### 2. Writing your step component(s)
 
-If you plan to have form fields in your step component, you should use RHF's `register` method to render fields and `ErrorMessage` to render error messages. For instance, this is what `StepName` and `StepAge` could look like:
+If you plan to have form fields in your step component, you should use RHF's `register` method to render fields and `formState.errors` to render errors. For instance, this is what `StepName` and `StepAge` could look like:
 
 ```js
 import { useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
 function StepName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
         <input {...register("name")} />
-        <ErrorMessage name="name" />
+        {errors.name && <span>{errors.name.message}</span>}
       </div>
       <button type="submit">Next</button>
     </div>
@@ -228,13 +226,14 @@ function StepName() {
 }
 
 function StepAge() {
+  const { register, formState: { errors } } = useFormContext();
   const { goToPreviousStep } = useWizard();
   return (
     <div>
       <div>
         <label htmlFor="age">Name</label>
         <input type="number" {...register("age")} />
-        <ErrorMessage name="age" />
+        {errors.age && <span>{errors.age.message}</span>}
       </div>
       <button type="button" onClick={goToPreviousStep}>
         Previous
@@ -293,17 +292,16 @@ Here's what the finished code looks like:
 import React from "react";
 import { useWizard, Wizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import * as Yup from "yup";
 
 function StepName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
         <input {...register("name")} />
-        <ErrorMessage name="name" />
+        {errors.name && <span>{errors.name.message}</span>}
       </div>
       <button type="submit">Next</button>
     </div>
@@ -312,13 +310,13 @@ function StepName() {
 
 function StepAge() {
   const { goToPreviousStep } = useWizard();
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <div>
         <label htmlFor="age">Age</label>
         <input type="number" min="0" {...register("age")} />
-        <ErrorMessage name="age" />
+        {errors.age && <span>{errors.age.message}</span>}
       </div>
       <button type="button" onClick={goToPreviousStep}>
         Previous
@@ -384,7 +382,7 @@ function App() {
 
 ### What if I don't want to use RHF in step component?
 
-Then you can omit `initialValues` and `validationSchema` / `validate` attributes from the step object and not just use RHF's `register` method and `ErrorMessage` in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
+Then you can omit `initialValues` and `validationSchema` / `validate` attributes from the step object and not just use RHF's `useFormContext` hook in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
 
 ## Navigation
 
@@ -575,17 +573,16 @@ Example:
 ```js
 import { Wizard, useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
 function NonSkippableStep() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <p>This is non-skippable step.</p>
       <p>Type "skip" if you want to skip next step.</p>
       <div>
         <input {...register("text")} />
-        <ErrorMessage name="text" />
+        {errors.text && <span>{errors.text.message}</span>}
       </div>
       <button type="submit">Next</button>
     </div>
@@ -656,13 +653,13 @@ Example:
 
 ```js
 function StepName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <div>
         <label htmlFor="name">Name</label>
         <input {...register("name")} />
-        <ErrorMessage name="name" />
+        {errors.name && <span>{errors.name.message}</span>}
       </div>
       <button type="submit">Next</button>
     </div>
@@ -670,14 +667,14 @@ function StepName() {
 }
 
 function StepFullName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   const { goToPreviousStep } = useWizard();
   return (
     <div>
       <div>
         <label htmlFor="fullName">Full Name</label>
         <input {...register("fullName")} />
-        <ErrorMessage name="fullName" />
+        {errors.fullName && <span>{errors.fullName.message}</span>}
       </div>
       <button type="button" onClick={goToPreviousStep}>
         Previous
@@ -722,12 +719,12 @@ function getStepInitialValues(stepId) {
 }
 
 function StepName() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <div>
       <label htmlFor="name">Name</label>
       <input {...register("name")} />
-      <ErrorMessage name="name" />
+      {errors.name && <span>{errors.name.message}</span>}
     </div>
   );
 }
