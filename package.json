@@ -30,7 +30,7 @@
     "react-wizard",
     "form-wizard",
     "step-wizard",
-    "rhf-wizard"
+    "react-hook-form-wizard"
   ],
   "scripts": {
     "dev": "vite",
