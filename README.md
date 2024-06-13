@@ -78,7 +78,10 @@ import { useFormContext } from "react-hook-form";
 import * as Yup from "yup";
 
 function StepName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <label htmlFor="name">Name</label>
@@ -89,7 +92,10 @@ function StepName() {
 }
 
 function StepAge() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <label htmlFor="age">Age</label>
@@ -212,7 +218,10 @@ import { useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 
 function StepName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <div>
@@ -226,7 +235,10 @@ function StepName() {
 }
 
 function StepAge() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { goToPreviousStep } = useWizard();
   return (
     <div>
@@ -295,7 +307,10 @@ import { useFormContext } from "react-hook-form";
 import * as Yup from "yup";
 
 function StepName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <div>
@@ -310,7 +325,10 @@ function StepName() {
 
 function StepAge() {
   const { goToPreviousStep } = useWizard();
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <div>
@@ -575,7 +593,10 @@ import { Wizard, useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 
 function NonSkippableStep() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <p>This is non-skippable step.</p>
@@ -653,7 +674,10 @@ Example:
 
 ```js
 function StepName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <div>
@@ -667,7 +691,10 @@ function StepName() {
 }
 
 function StepFullName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { goToPreviousStep } = useWizard();
   return (
     <div>
@@ -719,7 +746,10 @@ function getStepInitialValues(stepId) {
 }
 
 function StepName() {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div>
       <label htmlFor="name">Name</label>
