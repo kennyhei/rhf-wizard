@@ -71,8 +71,6 @@ yarn add rhf-wizard react-hook-form
 ## Quickstart
 
 ```js
-import React from "react";
-import ReactDOM from "react-dom/client";
 import { Wizard, useWizard, BasicFooter } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 import * as Yup from "yup";
@@ -162,7 +160,7 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+export default App;
 ```
 
 ## How it works
@@ -301,7 +299,6 @@ After user has completed the wizard, `onCompleted` would print this:
 Here's what the finished code looks like:
 
 ```js
-import React from "react";
 import { useWizard, Wizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 import * as Yup from "yup";
@@ -396,6 +393,8 @@ function App() {
     />
   );
 }
+
+export default App;
 ```
 
 ### What if I don't want to use RHF in step component?
@@ -420,7 +419,6 @@ If you wish to include a shared navigation for all steps in your wizard, you can
 Here's an example of simple navigation component:
 
 ```js
-import React from "react";
 import { Wizard, useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
 
@@ -495,7 +493,6 @@ function App() {
 If you don't wish to create your own navigation component, a basic footer with navigation buttons is included in `rhf-wizard`. Here's how you can use it:
 
 ```js
-import React from "react";
 import { Wizard, BasicFooter } from "rhf-wizard";
 
 const steps = [
@@ -778,15 +775,17 @@ const steps = [
   },
 ];
 
-return (
-  <Wizard
-    steps={steps}
-    onStepChanged={(fromStep, toStep, wizardValues) => {
-      sessionStorage.setItem("wizardValues", JSON.stringify(wizardValues));
-    }}
-    footer={<BasicFooter />}
-  />
-);
+function App() {
+  return (
+    <Wizard
+      steps={steps}
+      onStepChanged={(fromStep, toStep, wizardValues) => {
+        sessionStorage.setItem("wizardValues", JSON.stringify(wizardValues));
+      }}
+      footer={<BasicFooter />}
+    />
+  );
+}
 ```
 
 ### Using URL hashes in the wizard
@@ -856,7 +855,11 @@ function Wrapper() {
   );
 }
 
-return <Wizard steps={steps} wrapper={<Wrapper />} footer={<BasicFooter />} />;
+function App() {
+  return (
+    <Wizard steps={steps} wrapper={<Wrapper />} footer={<BasicFooter />} />
+  );
+}
 ```
 
 ### Creating wrapper for steps
