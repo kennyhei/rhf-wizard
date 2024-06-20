@@ -288,7 +288,7 @@ After second step:
 > step changed, StepAge, StepFinal, { StepName: { name: 'John' }, { StepAge: { age: 30 } } }
 ```
 
-After user has completed the wizard, `onCompleted` would print this:
+After user has completed the wizard, `onCompleted` flattens the values under the hood and prints this:
 
 ```js
 > wizard completed, { name: 'John', age: 30 }
