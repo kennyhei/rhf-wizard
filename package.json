@@ -57,7 +57,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.12.10",
-    "framer-motion": "^11.2.10",
+    "framer-motion": "^11.3.24",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.39",
     "prettier": "3.3.3",
