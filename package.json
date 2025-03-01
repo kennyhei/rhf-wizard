@@ -48,7 +48,7 @@
   "dependencies": {},
   "devDependencies": {
     "@hookform/error-message": "^2.0.1",
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^3.10.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.17.16",
