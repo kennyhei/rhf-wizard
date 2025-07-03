@@ -60,7 +60,7 @@
     "framer-motion": "^11.18.2",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.4",
-    "prettier": "3.5.3",
+    "prettier": "3.6.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.59.0",
