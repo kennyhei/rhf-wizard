@@ -806,14 +806,14 @@ Step IDs are converted into URL-friendly hashes. When user is in the first step,
 
 ### Animations
 
-Check `demo/components/WizardStepWrapper.jsx` on how to use `framer-motion` in your steps.
+Check `demo/components/WizardStepWrapper.jsx` on how to use `motion` in your steps.
 
 Example:
 
 ```js
 import { BasicFooter, Wizard, useWizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 
 function Field({ name, type }) {
   const { register } = useFormContext();

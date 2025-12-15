@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import { useWizard } from "@/index";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import DefaultStepContentRenderer from "./DefaultStepContentRenderer";
 import { AppContext } from "../main";
 
