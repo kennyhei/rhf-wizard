@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
       },
       rollupOptions: {
         // Excludes react from build file
-        external: ["react", "react-dom", "react-hook-form"],
+        external: ["react", "react-dom", "react-hook-form", "yup"],
         output: {
           globals: {
             react: "React",
