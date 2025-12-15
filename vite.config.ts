@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import terser from "@rollup/plugin-terser";
 import dts from "vite-plugin-dts";
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -12,7 +13,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    plugins: [react(), dts()],
+    plugins: [tailwindcss(), react(), dts()],
     // Exclude "public" folder from production build
     publicDir: mode === "development" ? "public" : false,
     build: {

@@ -13,17 +13,14 @@ function StepFinal() {
 
   let data = {};
   Object.keys(values).forEach((stepId) => {
-    data = {
-      ...data,
-      ...values[stepId],
-    };
+    data = { ...data, ...values[stepId] };
   });
 
   return (
     <div className="prose prose-neutral max-w-none">
       <h2>Congratulations!</h2>
       <div className="flex flex-wrap gap-4 justify-between">
-        <p className="my-0">
+        <p className="!mt-0">
           You did it <b>{values.Username.username}</b>! 🎉
           <br />
           Here's your input:
@@ -32,9 +29,9 @@ function StepFinal() {
           Toggle hideNext
         </button>
       </div>
-      <code className="text-sm sm:text-base bg-transparent">
-        <pre className="mt-0">{JSON.stringify(data, null, 2)}</pre>
-      </code>
+      <pre className="mt-0 text-sm sm:text-base">
+        {JSON.stringify(data, null, 2)}
+      </pre>
     </div>
   );
 }

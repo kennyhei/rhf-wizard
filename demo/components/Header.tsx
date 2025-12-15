@@ -22,7 +22,7 @@ function Header() {
           <a href="https://github.com/kennyhei/rhf-wizard" target="_blank">
             <img
               src={`${baseUrl}/github-mark-white.svg`}
-              className="rounded-md w-9 my-0"
+              className="rounded-md w-9 !my-0"
             />
           </a>
         </div>
@@ -39,10 +39,10 @@ function Header() {
       </div>
       {/* Toggle animation */}
       <div className="flex justify-end pr-5 prose max-w-none pt-1">
-        <label className="label cursor-pointer px-0">
+        <label className="label cursor-pointer px-0 py-2">
           <span
             className={
-              "label-text pr-2 " +
+              "label-text pr-0.5 " +
               (isAnimated ? "text-success" : "text-gray-300")
             }
           >
@@ -50,9 +50,11 @@ function Header() {
           </span>
           <input
             type="checkbox"
-            className="toggle toggle-sm bg-gray-300 toggle-success"
+            className="toggle toggle-sm toggle-success"
             checked={isAnimated}
-            onChange={() => setIsAnimated(!isAnimated)}
+            onChange={() => {
+              setIsAnimated(!isAnimated)
+            }}
           />
         </label>
       </div>

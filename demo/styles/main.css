@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
 
 html {
   @media (min-width: 1024px) {
@@ -39,4 +39,9 @@ button,
       @apply sr-only lg:not-sr-only;
     }
   }
+}
+
+.label-text {
+  font-size: .875rem;
+  line-height: 1.25rem;
 }
