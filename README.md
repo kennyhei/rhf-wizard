@@ -279,19 +279,19 @@ Now you can pass the list to `Wizard`:
 If we look at [Quickstart](#quickstart) example, then `onStepChanged` would print this after user has completed first step:
 
 ```js
-> step changed, StepName, StepAge, { StepName: { firstName: 'John', lastName: 'Doe' } }
+> step changed, StepName, StepAge, { StepName: { name: 'John' } }
 ```
 
 After second step:
 
 ```js
-> step changed, StepAge, StepFinal, { StepName: { firstName: 'John', lastName: 'Doe' }, { StepAge: { age: 30 } } }
+> step changed, StepAge, StepFinal, { StepName: { name: 'John' }, { StepAge: { age: 30 } } }
 ```
 
-After user has completed the wizard, `onCompleted` would print this:
+After user has completed the wizard, `onCompleted` flattens the values under the hood and prints this:
 
 ```js
-> wizard completed, { firstName: 'John', lastName: 'Doe', age: 30 }
+> wizard completed, { name: 'John', age: 30 }
 ```
 
 ### 4. Full example
