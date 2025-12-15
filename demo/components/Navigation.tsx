@@ -27,7 +27,7 @@ function Navigation() {
         {/* "Previous" button */}
         {!hidePrevious && (
           <button
-            className="btn btn-primary w-34"
+            className="btn btn-primary sm:w-34"
             onClick={goToPreviousStep}
             disabled={isFirstStep}
             type="button"
@@ -49,7 +49,7 @@ function Navigation() {
                 : undefined
             }
           >
-            <button className="btn btn-primary w-34" disabled={disableNext} type="submit">
+            <button className="btn btn-primary sm:w-34" disabled={disableNext} type="submit">
               {isLoading && (
                 <span className="mr-1 loading">
                   <ClipLoader size={11} color="#757575" />
