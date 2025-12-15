@@ -2012,6 +2012,9 @@ reusify@^1.0.4:
   resolved "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
 
+rhf-wizard@./rhf-wizard:
+  version "1.0.1"
+
 rollup@^4.43.0:
   version "4.53.4"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.53.4.tgz#5517de2593624928ac18f041b269f3b79cb64e09"

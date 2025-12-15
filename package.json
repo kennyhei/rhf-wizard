@@ -37,7 +37,7 @@
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "build": "tsc && vite build",
-    "build:demo": "vite build -c vite.demo.config.js",
+    "build:demo": "vite build -c vite.demo.config.ts",
     "predeploy": "npm run build:demo",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview",
@@ -46,7 +46,9 @@
     "install:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && npm run build && npm pack && tar -xzf rhf-wizard-$PACKAGE_VERSION.tgz && mv package rhf-wizard && yarn add ./rhf-wizard",
     "uninstall:local": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && yarn remove rhf-wizard && rm -rf rhf-wizard-$PACKAGE_VERSION.tgz rhf-wizard"
   },
-  "dependencies": {},
+  "dependencies": {
+    "rhf-wizard": "./rhf-wizard"
+  },
   "devDependencies": {
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^5.2.2",
@@ -75,6 +77,7 @@
     "yup": "^1.7.1"
   },
   "peerDependencies": {
+    "@hookform/resolvers": ">=5.0.0",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
     "react-hook-form": ">=7.0.0"
