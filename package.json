@@ -3,7 +3,7 @@
   "author": "kennyhei <kenny_heinonen@hotmail.com>",
   "description": "Multistep wizard for React Hook Form",
   "homepage": "https://github.com/kennyhei/rhf-wizard",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
