@@ -3,6 +3,7 @@ import { Values, WizardValues, StepConfig } from "@/types";
 import StepEmailCheck from "../components/steps/StepEmailCheck";
 import StepAsync from "../components/steps/StepAsync";
 import StepFinal from "../components/steps/StepFinal";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const steps: StepConfig[] = [
   {
@@ -30,7 +31,7 @@ const steps: StepConfig[] = [
         email: "e.g. john@doe.com",
       },
     },
-    validationSchema: ContactInfoSchema,
+    resolver: yupResolver(ContactInfoSchema),
     disableNextOnErrors: true,
   },
   {

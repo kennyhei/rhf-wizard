@@ -1,4 +1,3 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { StepConfig as Step, Values, WizardValues } from "../types";
 
 export function getMode(activeStep: Step) {
@@ -37,8 +36,8 @@ function validateResolver(validateFn: Step["validate"], values: WizardValues) {
 }
 
 export function getResolver(activeStep: Step, values: WizardValues) {
-  if (activeStep.validationSchema) {
-    return yupResolver(activeStep.validationSchema);
+  if (activeStep.resolver) {
+    return activeStep.resolver;
   }
   if (activeStep.validate) {
     return validateResolver(activeStep.validate, values);

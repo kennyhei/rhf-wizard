@@ -66,13 +66,14 @@ Yarn:
 yarn add rhf-wizard react-hook-form
 ```
 
-**Note:** It is also recommended to install `yup` for validation (it is used in examples below). You can install `yup` with `npm install yup --save` or `yarn add yup`. However, it's not mandatory as you can write your validation function to [steps](#step-object) with plain JS as well (see `validate`).
+**Note**: Validation is handled via react-hook-form `resolver` (e.g. Yup/Zod) or a plain `validate` function. Examples below use Yup, but any resolver works.
 
 ## Quickstart
 
 ```js
 import { Wizard, useWizard, BasicFooter } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 function StepName() {
@@ -125,18 +126,22 @@ function App() {
       id: "StepName",
       component: <StepName />,
       initialValues: { name: "John" },
-      validationSchema: Yup.object({
-        name: Yup.string().required("Name is required"),
-      }),
+      resolver: yupResolver(
+        Yup.object({
+          name: Yup.string().required("Name is required"),
+        })
+      ),
       hidePrevious: true,
     },
     {
       id: "StepAge",
       component: <StepAge />,
       initialValues: { age: 30 },
-      validationSchema: Yup.object({
-        age: Yup.number().positive().required("Age is required"),
-      }),
+      resolver: yupResolver(
+        Yup.object({
+          age: Yup.number().positive().required("Age is required"),
+        })
+      ),
     },
     {
       id: "StepFinal",
@@ -177,17 +182,21 @@ const steps = [
     id: "StepName",
     component: <StepName />,
     initialValues: { name: "" },
-    validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-    }),
+    resolver: yupResolver(
+      Yup.object({
+        name: Yup.string().required("Name is required"),
+      })
+    ),
   },
   {
     id: "StepAge",
     component: <StepAge />,
     initialValues: { age: "" },
-    validationSchema: Yup.object({
-      age: Yup.number().positive().required("Age is required"),
-    }),
+    resolver: yupResolver(
+      Yup.object({
+        age: Yup.number().positive().required("Age is required"),
+      })
+    ),
   },
   {
     id: "StepFinal",
@@ -199,11 +208,11 @@ const steps = [
 Each step object defines `component` that is used to render the step. `Wizard` wraps the currently active step inside `<FormProvider><form></form></FormProvider>`. The following step object attributes are passed automatically to `react-hook-form`:
 
 - `initialValues`: Default values of the `react-hook-form` registered fields that are rendered in the `component`.
-- `validationSchema` / `validate`: Either define Yup schema or function that validates the form fields.
+- `resolver` / `validate`: Either provide an RHF resolver (e.g. `yupResolver(schema)`) or a function that validates the form fields.
 - `validateOnChange`: Tells RHF to validate the form on each input's onChange event. Defaults to `true`.
 - `validateOnBlur`: Tells RHF to validate the form on each input's onBlur event. Defaults to `true`.
 
-Usually you would need to define at least `initialValues` and `validationSchema` / `validate` (presuming that your step `component` contains form fields).
+Usually you would need to define at least `initialValues` and `resolver` / `validate` (presuming that your step `component` contains form fields).
 
 You can view the full list of step options [here](#step-object).
 
@@ -301,6 +310,7 @@ Here's what the finished code looks like:
 ```js
 import { useWizard, Wizard } from "rhf-wizard";
 import { useFormContext } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 function StepName() {
@@ -362,17 +372,21 @@ function App() {
       id: "StepName",
       component: <StepName />,
       initialValues: { name: "" },
-      validationSchema: Yup.object({
-        name: Yup.string().required("Name is required"),
-      }),
+      resolver: yupResolver(
+        Yup.object({
+          name: Yup.string().required("Name is required"),
+        })
+      ),
     },
     {
       id: "StepAge",
       component: <StepAge />,
       initialValues: { age: "" },
-      validationSchema: Yup.object({
-        age: Yup.number().positive().required("Age is required"),
-      }),
+      resolver: yupResolver(
+        Yup.object({
+          age: Yup.number().positive().required("Age is required"),
+        })
+      ),
     },
     {
       id: "StepFinal",
@@ -399,7 +413,7 @@ export default App;
 
 ### What if I don't want to use RHF in step component?
 
-Then you can omit `initialValues` and `validationSchema` / `validate` attributes from the step object and not just use RHF's `useFormContext` hook in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
+Then you can omit `initialValues` and `resolver` / `validate` attributes from the step object and not just use RHF's `useFormContext` hook in your step component. You can basically write anything in your component as long as it has a button of type `submit` for proceeding to the next step or alternatively you can use shared navigation component which will be explained next.
 
 ## Navigation
 
@@ -525,6 +539,7 @@ List of step objects that are passed to `Wizard` have various options you can se
 | `id`                   | `string`                                      |         | _**(Required)**_ Unique ID for step component. Form values inputted by user are stored in the Wizard's `values` object under step ID key. E.g. `{ [id]: { [field]: [value] } }`. Values can be retrieved from Wizard using `useWizard` hook.                                     |
 | `component`            | `ReactElement`                                |         | Component used for rendering step content. Usually this is always required unless you implement default component object like in the `demo/` code.                                                                                                                               |
 | `initialValues`        | `object`                                      | `{}`    | Contains key-value pairs for step's form fields.<br><br>Example:<br>`initialValues: { name: '', email: '' }`                                                                                                                                                                     |
+| `resolver`             | `Resolver`                                    |         | RHF resolver for this step (e.g. `yupResolver(schema)`). Preferred for schema-based validation.                                                                                                                                                                                  |
 | `hideNext`             | `boolean`                                     | `false` | Indicates whether to hide submit button.                                                                                                                                                                                                                                         |
 | `hidePrevious`         | `boolean`                                     | `false` | Indicates whether to hide "Previous" button.                                                                                                                                                                                                                                     |
 | `disableNext`          | `boolean`                                     | `false` | Indicates whether to disable submit button.                                                                                                                                                                                                                                      |
@@ -534,7 +549,6 @@ List of step objects that are passed to `Wizard` have various options you can se
 | `shouldSkip`           | `async (allValues, direction) => stepValues`  |         | Function that returns boolean telling whether the step should be skipped or not.<br><br>Params:<br>- `allValues`: all form field values from previous steps<br>- `direction`: Tells whether user came to the current step by pressing "Previous" (-1) or by pressing "Next" (1)  |
 | `onSubmit`             | `async (stepValues, allValues) => stepValues` |         | Function that serves as a custom submit handler where you can do things after successful form submission. You should return `stepValues`.<br><br>Params:<br>- `stepValues`: form field values filled in current step<br>- `allValues`: all form field values from previous steps |
 | `validate`             | `(stepValues, allValues) => object`           |         | Validate the form's values with a function. If there are errors, return object containing field's name as key and error message as value.<br><br>Params:<br>- `stepValues`: form field values filled in current step<br>- `allValues`: all form field values from previous steps |
-| `validationSchema`     | `Yup.object`                                  |         | A Yup schema. This is used for validation. Errors are mapped by key to the inner component's errors. Its keys should match of those values. Example here: [ https://react-hook-form.com/get-started#SchemaValidation ](https://react-hook-form.com/get-started#SchemaValidation) |
 | `validateOnBlur`       | `boolean`                                     | `true`  | Use this option to tell RHF to run validations on blur events.                                                                                                                                                                                                                   |
 | `validateOnChange`     | `boolean`                                     | `true`  | Use this option to tell RHF to run validations on change events.                                                                                                                                                                                                                 |
 

@@ -1,3 +1,4 @@
+import type { Resolver } from "react-hook-form";
 import "vite/client";
 
 export interface Values<K = any> {
@@ -30,6 +31,10 @@ export interface StepConfig {
   initialValues?: {
     [field: string]: any;
   };
+  /**
+   * react-hook-form resolver for this step. Preferred way to validate.
+   */
+  resolver?: Resolver<any, any>;
   /**
    * Submits step's form when 'onchange' event is triggered for any field.
    * @default false
@@ -77,7 +82,6 @@ export interface StepConfig {
    *
    * @param stepValues Form field values inputted in current step
    * @param allValues Object containing all form field values from previous steps
-   * @param actions Includes Formik helper functions
    * @returns stepValues
    */
   onSubmit?: (stepValues: Values, allValues: WizardValues) => Values;
@@ -89,15 +93,13 @@ export interface StepConfig {
    * @returns Object where keys represent field and value represents error message. Return nothing if there are no errors.
    */
   validate?: (stepValues: Values, allValues: WizardValues) => Values<string>;
-  /** A Yup schema or a function that returns a Yup schema. */
-  validationSchema?: any;
   /**
-   * Tells Formik to validate the form on each input's onBlur event.
+   * Tells RHF to validate the form on each input's onBlur event.
    * @default true
    */
   validateOnBlur?: boolean;
   /**
-   * Tells Formik to validate the form on each input's onChange event.
+   * Tells RHF to validate the form on each input's onChange event.
    * @default true
    */
   validateOnChange?: boolean;
